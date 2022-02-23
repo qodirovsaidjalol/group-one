@@ -16,5 +16,7 @@ public interface AuthUserService extends GenericCrudService<
         AuthUserUpdateDto,
         GenericCriteria,
         Long> {
+
+    void block(Long id, boolean b);
 }
 

@@ -22,7 +22,6 @@ public class FileStorageService {
 
     private final Path rootLocation;
 
-
     public FileStorageService() {
         this.rootLocation = Paths.get(UPLOAD_DIRECTORY);
     }
@@ -40,7 +39,6 @@ public class FileStorageService {
 
     public String store(MultipartFile file) {
         try {
-//            String originalFilename = file.getOriginalFilename();
             String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
             String generatedName = "%s.%s".formatted(System.currentTimeMillis() + System.nanoTime(), extension);
             String path = UPLOAD_DIRECTORY + generatedName;
@@ -63,8 +61,7 @@ public class FileStorageService {
     }
 
     public Resource loadAsResource(String filename) {
-        Resource resource = new FileSystemResource(Paths.get(UPLOAD_DIRECTORY, filename));
-        return resource;
+        return new FileSystemResource(Paths.get(UPLOAD_DIRECTORY, filename));
     }
 
 }

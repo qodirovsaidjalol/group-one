@@ -22,7 +22,6 @@ public class OrganizationServiceImpl extends AbstractService<OrganizationReposit
 
     private final FileStorageService fileStorageService;
 
-
     @Autowired
     protected OrganizationServiceImpl(OrganizationRepository repository, @Qualifier("organizationMapperImpl") OrganizationMapper mapper, BaseUtils baseUtils, FileStorageService fileStorageService) {
         super(repository, mapper, baseUtils);
@@ -60,8 +59,18 @@ public class OrganizationServiceImpl extends AbstractService<OrganizationReposit
         return mapper.toDto(repository.findOrganizationById(id));
     }
 
+    public Organization getOrg(Long id) {
+        return repository.findOrganizationById(id);
+    }
+
     @Override
     public Long totalCount(GenericCriteria criteria) {
         return null;
+    }
+
+    @Override
+    public void block(Long id, boolean b) {
+        Organization organization = repository.findOrganizationById(id);
+        organization.setBlocked(!b);
     }
 }

@@ -21,7 +21,7 @@
     </div>
 
     <div class="login-input">
-        <form th:action="@{/auth/create}" method="post" enctype="multipart/form-data">
+        <form th:action="@{/auth/update}" method="post" enctype="multipart/form-data" th:object="@{user}">
 
             <label>
                 <input type="text" placeholder="Enter user name" name="username">

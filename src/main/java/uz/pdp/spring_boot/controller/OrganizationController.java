@@ -66,4 +66,29 @@ public class OrganizationController extends AbstractController<OrganizationServi
         model.addAttribute("organizations", service.getAll(new GenericCriteria()));
         return "organization/list";
     }
+
+
+    @RequestMapping(value = "block/{id}/", method = RequestMethod.GET)
+    public String blockPage(Model model, @PathVariable(name = "id") Long id) {
+        model.addAttribute("user", service.get(id));
+        return "auth/block";
+    }
+
+    @RequestMapping(value = "block/{id}/", method = RequestMethod.POST)
+    public String block(@PathVariable(name = "id") Long id) {
+        service.block(id, false);
+        return "redirect:/auth/list";
+    }
+
+    @RequestMapping(value = "unblock/{id}/", method = RequestMethod.GET)
+    public String unblockPage(Model model, @PathVariable(name = "id") Long id) {
+        model.addAttribute("user", service.get(id));
+        return "auth/unblock";
+    }
+
+    @RequestMapping(value = "unblock/{id}/", method = RequestMethod.POST)
+    public String unblock(@PathVariable(name = "id") Long id) {
+        service.block(id, true);
+        return "redirect:/auth/list";
+    }
 }

@@ -19,6 +19,8 @@ public class Organization extends Auditable {
 
     private String email;
 
+    private boolean isBlocked = false;
+
     @Column(unique = true, nullable = false)
     private String code;
 

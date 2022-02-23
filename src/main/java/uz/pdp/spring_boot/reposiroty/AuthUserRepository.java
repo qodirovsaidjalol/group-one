@@ -13,4 +13,6 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Long>, Abstr
     AuthUser findAuthUserById(Long id);
 
     List<AuthUser> findAllByOrganization_Id(Long id);
+
+    List<AuthUser> findAll();
 }

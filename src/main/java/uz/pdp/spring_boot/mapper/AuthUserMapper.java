@@ -1,6 +1,7 @@
 package uz.pdp.spring_boot.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 import uz.pdp.spring_boot.dto.auth.AuthUserCreateDto;
 import uz.pdp.spring_boot.dto.auth.AuthUserDto;
@@ -18,6 +19,7 @@ public interface AuthUserMapper extends BaseMapper<
         AuthUserUpdateDto> {
 
     @Override
+    @Mapping(target = "image", ignore = true)
     AuthUser fromCreateDto(AuthUserCreateDto authUserCreateDto);
 
     @Override

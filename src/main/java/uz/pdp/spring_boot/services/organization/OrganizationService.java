@@ -16,4 +16,5 @@ public interface OrganizationService extends GenericCrudService<
         Long> {
 
 
+    void block(Long id, boolean b);
 }

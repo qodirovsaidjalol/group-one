@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragment.html :: header('Home Page')"></head>
+<body class="myb">
 
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Detail</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user,iter : ${users}">
+                <td th:text="${iter.count}"></td>
+                <td th:utext="${user.getUsername()}"></td>
+                <td th:utext=" ${user.getEmail()}"></td>
+                <td>
+                    <a th:href="@{/auth/detail/{id}/(id=${user.id})}">Details</a>
+                </td>
+                <td>
+                    <a th:href="@{/auth/block/{id}/(id=${user.id})}">🔐</a>
+                    <a th:href="@{/auth/unblock/{id}/(id=${user.id})}">🔓</a>
+                    <a th:href="@{/auth/delete/{id}/(id=${user.id})}">🗑</a>
+                    <a th:href="@{/auth/update/{id}/(id=${user.id})}"> ✏ </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/auth/create}" class="btn btn-success">➕ Add</a>
+    </div>
+</div>
+
+<section th:include="fragment.html :: js-files"></section>
 </body>
 </html>

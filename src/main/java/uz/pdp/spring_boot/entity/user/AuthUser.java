@@ -21,6 +21,8 @@ public class AuthUser extends Auditable {
 
     private String email;
 
+    private String image;
+
     private boolean isSuperAdmin = false;
 
     private String lang;

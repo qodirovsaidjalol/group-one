@@ -15,6 +15,7 @@ public class AuthUserDto extends GenericDto {
     private String username;
     private String password;
     private String email;
+    private String image;
     private Role role;
     private Long organizationId;
 

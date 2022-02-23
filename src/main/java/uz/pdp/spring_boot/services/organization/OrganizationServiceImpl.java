@@ -1,6 +1,7 @@
 package uz.pdp.spring_boot.services.organization;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import uz.pdp.spring_boot.criteria.GenericCriteria;
@@ -23,7 +24,7 @@ public class OrganizationServiceImpl extends AbstractService<OrganizationReposit
 
 
     @Autowired
-    protected OrganizationServiceImpl(OrganizationRepository repository, OrganizationMapper mapper, BaseUtils baseUtils, FileStorageService fileStorageService) {
+    protected OrganizationServiceImpl(OrganizationRepository repository, @Qualifier("organizationMapperImpl") OrganizationMapper mapper, BaseUtils baseUtils, FileStorageService fileStorageService) {
         super(repository, mapper, baseUtils);
         this.fileStorageService = fileStorageService;
     }

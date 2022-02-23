@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragment.html :: header('Organization Details Page')">
-</head>
 <body>
 <header>
-    <section th:include="fragment.html :: navbar"></section>
+
 </header>
 <main>
     <div class="container">
@@ -12,6 +10,7 @@
             <div class="col-6 offset-3">
                 <p class="h4" th:text="${organization.name}"></p>
                 <p class="h4" th:text="${organization.email}"></p>
+                <p class="h4" th:text="${organization.location}"></p>
                 <p class="h4" th:text="${organization.code}"></p>
                 <p class="h4" th:text="${organization.owner}"></p>
                 <img class="mr-3" width="120" height="180" th:src="@{${organization.logo}}"

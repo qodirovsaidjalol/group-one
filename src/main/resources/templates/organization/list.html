@@ -10,7 +10,9 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>Email</th>
                 <th>Owner</th>
+                <th>Detail</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -18,8 +20,14 @@
             <tr th:each="organization,iter : ${organizations}">
                 <td th:text="${iter.count}"></td>
                 <td th:utext="${organization.getName()}"></td>
+                <td th:utext=" ${organization.getEmail()}"></td>
                 <td th:utext="${organization.getOwner()}"></td>
-                <td>✅
+                <td>
+                    <a th:href="@{/organization/detail/{id}/(id=${organization.id})}">Details</a>
+                </td>
+                <td>
+                    <a th:href="@{/organization/block/{id}/(id=${organization.id})}">🔐</a>
+                    <a th:href="@{/organization/unblock/{id}/(id=${organization.id})}">🔓</a>
                     <a th:href="@{/organization/delete/{id}/(id=${organization.id})}">🗑</a>
                     <a th:href="@{/organization/update/{id}/(id=${organization.id})}"> ✏ </a>
                 </td>

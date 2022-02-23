@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+
+    <link rel="stylesheet" th:href="@{/css/register.css}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&display=swap"
+            rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="login-text">
+        <h3>Create Organization</h3>
+    </div>
+
+    <div class="login-input">
+        <form th:action="@{/organization/create}" method="post" enctype="multipart/form-data">
+
+            <label>
+                <input type="text" placeholder="Enter organization name" name="name">
+            </label>
+
+            <label>
+                <input type="text" placeholder="Enter organization Code" name="code">
+            </label>
+
+            <label>
+                <input type="text" placeholder="Enter organization Email" name="email">
+            </label>
+
+            <label>
+                <input type="file" id="image_uploads" placeholder="Enter organization logo" name="logo"
+                       accept=".jpg, .jpeg, .png, .img" multiple/>
+            </label>
+
+            <label>
+                <input type="text" placeholder="Enter organization owner username" name="ownerName">
+            </label>
+
+            <label>
+                <input type="text" placeholder="Enter organization owner password" name="ownerPassword">
+            </label>
+
+            <div class="login-button">
+                <button type="submit">➕ Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

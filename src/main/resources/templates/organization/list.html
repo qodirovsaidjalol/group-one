@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragment.html :: header('Home Page')"></head>
+<body class="myb">
+
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Owner</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="organization,iter : ${organizations}">
+                <td th:text="${iter.count}"></td>
+                <td th:utext="${organization.getName()}"></td>
+                <td th:utext="${organization.getOwner().getUsername()}"></td>
+                <td>✅
+                    <a th:href="@{/organization/delete/{id}/(id=${organization.id})}">🗑</a>
+                    <a th:href="@{/organization/update/{id}/(id=${organization.id})}"> ✏ </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/todo/create}" class="btn btn-success">➕ Add</a>
+    </div>
+</div>
+
+<section th:include="fragment.html :: js-files"></section>
+</body>
+</html>
+
+
+

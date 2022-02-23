@@ -13,19 +13,18 @@ import uz.pdp.spring_boot.reposiroty.OrganizationRepository;
 import uz.pdp.spring_boot.services.AbstractService;
 import uz.pdp.spring_boot.services.organization.file.FileStorageService;
 import uz.pdp.spring_boot.utils.BaseUtils;
-import uz.pdp.spring_boot.utils.validators.organization.OrganizationValidator;
 
 import java.util.List;
 
 @Service
-public class OrganizationServiceImpl extends AbstractService<OrganizationRepository, OrganizationMapper, OrganizationValidator> implements OrganizationService {
+public class OrganizationServiceImpl extends AbstractService<OrganizationRepository, OrganizationMapper> implements OrganizationService {
 
     private final FileStorageService fileStorageService;
 
 
     @Autowired
-    protected OrganizationServiceImpl(OrganizationRepository repository, OrganizationMapper mapper, OrganizationValidator validator, BaseUtils baseUtils, FileStorageService fileStorageService) {
-        super(repository, mapper, validator, baseUtils);
+    protected OrganizationServiceImpl(OrganizationRepository repository, OrganizationMapper mapper,  BaseUtils baseUtils, FileStorageService fileStorageService) {
+        super(repository, mapper,  baseUtils);
         this.fileStorageService = fileStorageService;
     }
 

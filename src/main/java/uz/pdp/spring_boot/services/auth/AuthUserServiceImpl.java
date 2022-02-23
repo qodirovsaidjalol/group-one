@@ -1,6 +1,7 @@
 package uz.pdp.spring_boot.services.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import uz.pdp.spring_boot.criteria.GenericCriteria;
 import uz.pdp.spring_boot.dto.auth.AuthUserCreateDto;
@@ -23,7 +24,7 @@ public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, Aut
     private final RoleRepository roleRepository;
 
     @Autowired
-    protected AuthUserServiceImpl(AuthUserRepository repository, AuthUserMapper mapper, BaseUtils baseUtils, OrganizationRepository organizationRepository, RoleRepository roleRepository) {
+    protected AuthUserServiceImpl(AuthUserRepository repository, @Qualifier("authUserMapperImpl") AuthUserMapper mapper, BaseUtils baseUtils, OrganizationRepository organizationRepository, RoleRepository roleRepository) {
         super(repository, mapper, baseUtils);
         this.organizationRepository = organizationRepository;
         this.roleRepository = roleRepository;

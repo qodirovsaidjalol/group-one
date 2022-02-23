@@ -34,7 +34,7 @@ public class AuthController extends AbstractController<AuthUserService> {
             return "auth/create";
         }
         service.create(dto);
-        return "auth/list";
+        return "redirect:/auth/list";
     }
 
     @GetMapping("update/{id}")
@@ -53,37 +53,37 @@ public class AuthController extends AbstractController<AuthUserService> {
     }
 
 
-    @RequestMapping(value = "delete/{id}/", method = RequestMethod.GET)
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public String deletePage(Model model, @PathVariable(name = "id") Long id) {
         model.addAttribute("user", service.get(id));
         return "auth/delete";
     }
 
-    @RequestMapping(value = "delete/{id}/", method = RequestMethod.POST)
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable(name = "id") Long id) {
         service.delete(id);
         return "redirect:/auth/list";
     }
 
-    @RequestMapping(value = "block/{id}/", method = RequestMethod.GET)
+    @RequestMapping(value = "block/{id}", method = RequestMethod.GET)
     public String blockPage(Model model, @PathVariable(name = "id") Long id) {
         model.addAttribute("user", service.get(id));
         return "auth/block";
     }
 
-    @RequestMapping(value = "block/{id}/", method = RequestMethod.POST)
+    @RequestMapping(value = "block/{id}", method = RequestMethod.POST)
     public String block(@PathVariable(name = "id") Long id) {
         service.block(id, false);
         return "redirect:/auth/list";
     }
 
-    @RequestMapping(value = "unblock/{id}/", method = RequestMethod.GET)
+    @RequestMapping(value = "unblock/{id}", method = RequestMethod.GET)
     public String unblockPage(Model model, @PathVariable(name = "id") Long id) {
         model.addAttribute("user", service.get(id));
         return "auth/unblock";
     }
 
-    @RequestMapping(value = "unblock/{id}/", method = RequestMethod.POST)
+    @RequestMapping(value = "unblock/{id}", method = RequestMethod.POST)
     public String unblock(@PathVariable(name = "id") Long id) {
         service.block(id, true);
         return "redirect:/auth/list";
@@ -95,7 +95,7 @@ public class AuthController extends AbstractController<AuthUserService> {
         return "auth/list";
     }
 
-    @RequestMapping("detail/{id}/")
+    @RequestMapping("detail/{id}")
     public String detail(Model model, @PathVariable(name = "id") Long id) {
         model.addAttribute("user", service.get(id));
         return "auth/detail";

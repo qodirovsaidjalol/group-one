@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragment.html :: header('User Delete Page')">
+<head th:include="fragment.html :: header('Organization Delete Page')">
 </head>
 <body>
 <header>
@@ -12,10 +12,14 @@
     <div class="container">
         <div class="row">
             <div class="col-4 mx-auto">
-
+                <ul>
+                    <li th:text="${user.username}"></li>
+                    <li th:text="${user.email}"></li>
+                    <li th:text="${user.id}"></li>
+                </ul>
                 <form method="post" th:action="@{/auth/delete/{id}(id=${user.id})}">
                     <button type="submit" class="btn btn-danger">Yes</button>
-                    <a th:href="@{/}" class="btn btn-warning">No</a>
+                    <a th:href="@{/auth/list}" class="btn btn-warning">No</a>
                 </form>
             </div>
         </div>

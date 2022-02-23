@@ -17,31 +17,34 @@
 <body>
 <div class="container">
     <div class="login-text">
-        <h3>Create Organization</h3>
+        <h3>Create Admin</h3>
     </div>
 
     <div class="login-input">
-        <form th:action="@{/organization/create}" method="post" enctype="multipart/form-data">
+        <form th:action="@{/auth/create}" method="post" enctype="multipart/form-data" th:object="${organization}">
 
             <label>
-                <input type="text" placeholder="Enter organization name" name="name">
+                <input type="text" placeholder="Enter Admin name" name="username">
             </label>
 
             <label>
-                <input type="text" placeholder="Enter organization Code" name="code">
+                <input type="text" placeholder="Enter Admin Password" name="password">
             </label>
 
             <label>
-                <input type="text" placeholder="Enter organization Email" name="email">
+                <input type="hidden" th:value="${organization.id}" name="organizationId">
             </label>
 
             <label>
-                <input type="file" id="image_uploads" placeholder="Enter organization logo" name="logo"
-                       accept=".jpg, .jpeg, .png, .img" multiple/>
+                <input type="hidden" th:value="Admin" name="role_name">
+            </label>
+
+            <label>
+                <input type="text" placeholder="Enter Admin Email" name="email">
             </label>
 
             <div class="login-button">
-                <button type="submit">➕ Save</button>
+                <button type="submit">Save</button>
             </div>
         </form>
     </div>

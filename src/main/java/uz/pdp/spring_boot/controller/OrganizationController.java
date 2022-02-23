@@ -20,17 +20,17 @@ public class OrganizationController extends AbstractController<OrganizationServi
         super(service);
     }
 
-    @RequestMapping(value = "create/", method = RequestMethod.GET)
+    @RequestMapping(value = "create", method = RequestMethod.GET)
     public String createPage() {
         return "organization/create";
     }
 
-    @RequestMapping(value = "create/", method = RequestMethod.POST)
-    public String create(@ModelAttribute OrganizationCreateDto dto) {
-        service.create(dto);
-        return "redirect:/organization/list/";
+    @RequestMapping(value = "create", method = RequestMethod.POST)
+    public String create(Model model, @ModelAttribute OrganizationCreateDto dto) {
+        Long id = service.create(dto);
+        model.addAttribute("organization", service.get(id));
+        return "auth/create_admin";
     }
-
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public String deletePage(Model model, @PathVariable(name = "id") Long id) {
@@ -41,7 +41,7 @@ public class OrganizationController extends AbstractController<OrganizationServi
     @RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable(name = "id") Long id) {
         service.delete(id);
-        return "redirect:/";
+        return "redirect:/organization/list/";
     }
 
 
@@ -61,7 +61,7 @@ public class OrganizationController extends AbstractController<OrganizationServi
         return "organization/detail";
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "list", method = RequestMethod.GET)
     public String listPage(Model model) {
         model.addAttribute("organizations", service.getAll(new GenericCriteria()));
         return "organization/list";

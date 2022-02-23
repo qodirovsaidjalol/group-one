@@ -8,6 +8,8 @@ import uz.pdp.spring_boot.dto.organization.OrganizationDto;
 import uz.pdp.spring_boot.dto.organization.OrganizationUpdateDto;
 import uz.pdp.spring_boot.entity.organization.Organization;
 
+import java.util.List;
+
 @Component
 @Mapper(componentModel = "spring")
 public interface OrganizationMapper extends BaseMapper<
@@ -23,4 +25,9 @@ public interface OrganizationMapper extends BaseMapper<
     @Override
     @Mapping(target = "logo", ignore = true)
     Organization fromUpdateDto(OrganizationUpdateDto organizationUpdateDto);
+
+    @Override
+    List<Organization> fromDto(List<OrganizationDto> e);
+
+    OrganizationDto toDto(Organization org);
 }

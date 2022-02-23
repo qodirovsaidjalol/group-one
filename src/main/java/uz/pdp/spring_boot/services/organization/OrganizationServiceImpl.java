@@ -23,8 +23,8 @@ public class OrganizationServiceImpl extends AbstractService<OrganizationReposit
 
 
     @Autowired
-    protected OrganizationServiceImpl(OrganizationRepository repository, OrganizationMapper mapper,  BaseUtils baseUtils, FileStorageService fileStorageService) {
-        super(repository, mapper,  baseUtils);
+    protected OrganizationServiceImpl(OrganizationRepository repository, OrganizationMapper mapper, BaseUtils baseUtils, FileStorageService fileStorageService) {
+        super(repository, mapper, baseUtils);
         this.fileStorageService = fileStorageService;
     }
 
@@ -56,11 +56,7 @@ public class OrganizationServiceImpl extends AbstractService<OrganizationReposit
 
     @Override
     public OrganizationDto get(Long id) {
-        Organization organization = repository.findById(id).orElseThrow(() -> {
-            throw new RuntimeException("Topilmadi");
-        });
-        OrganizationDto dto = mapper.toDto(organization);
-        return dto;
+        return mapper.toDto(repository.findOrganizationById(id));
     }
 
     @Override

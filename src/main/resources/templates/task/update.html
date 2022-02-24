@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragment.html :: header('TASK')"></head>
+<body class="myb">
+<section th:include="fragment.html :: navbar"></section>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <form th:action="@{/task/update}" th:method="post" th:object="${task}">
+                <div class="form-group">
+                    <label for="id" class="form-label"></label>
+                    <input class="form-control" type="text" id="id" name="id" th:value="${task.getId()}"/> <!--th:field="*{description}"-->
+                    <span style="color: red" th:errors="*{id}"></span>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="form-label">Title</label>
+                    <input class="form-control" type="text" id="name" name="name" th:value="${task.getName()}" /> <!--th:field="*{name}"-->
+                    <span style="color: red" th:errors="*{name}"></span>
+                </div>
+                <div class="form-group">
+                    <label for="description" class="form-label">Description</label>
+                    <input class="form-control" type="text" id="description" name="description" th:value="${task.getDescription()}"/> <!--th:field="*{description}"-->
+                    <span style="color: red" th:errors="*{description}"></span>
+                </div>
+                <div class="form-group">
+                    <label for="columnId" class="form-label">ColumnId</label>
+                    <input class="form-control" type="text" id="columnId" name="columnId" th:value="${task.getColumnId()}"/> <!--th:field="*{column}"-->
+                    <!--                    <span style="color: red" th:errors="*{column}"></span>-->
+                </div>
+                <div class="form-group">
+                    <label for="level" class="form-label">Level</label>
+                    <input class="form-control" type="text" id="level" name="level" th:value="${task.getLevel()}"/> <!--th:field="*{level}"-->
+                    <!--                    <span style="color: red" th:errors="*{level}"></span>-->
+                </div>
+                <div class="form-group">
+                    <label for="deadline">Deadline</label>
+                    <input class="form-control form-control-lg" type="date" id="deadline" name="deadline" required="" th:value="${task.getDeadline()}">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="submit" value="save" th:action="@{/task/update}"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<section th:include="fragment.html :: js-files"></section>
+</body>
+</html>

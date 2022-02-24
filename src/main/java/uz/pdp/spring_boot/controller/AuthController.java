@@ -11,8 +11,6 @@ import uz.pdp.spring_boot.dto.auth.AuthUserCreateDto;
 import uz.pdp.spring_boot.services.auth.AuthUserService;
 import uz.pdp.spring_boot.services.auth.AuthUserServiceImpl;
 
-import javax.validation.Valid;
-
 @Controller
 @RequestMapping("/auth/*")
 public class AuthController extends AbstractController<AuthUserService> {
@@ -27,9 +25,13 @@ public class AuthController extends AbstractController<AuthUserService> {
         model.addAttribute("dto", new AuthUserCreateDto());
         return "auth/create";
     }
+    @GetMapping(value = {"/auth/login"})
+    public String loginPage() {
+        return "login";
+    }
 
     @PostMapping("create")
-    public String userCreate(@Valid @ModelAttribute(name = "dto") AuthUserCreateDto dto, BindingResult bindingResult) {
+    public String userCreate( @ModelAttribute(name = "dto") AuthUserCreateDto dto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "auth/create";
         }
@@ -44,7 +46,7 @@ public class AuthController extends AbstractController<AuthUserService> {
     }
 
     @PostMapping("update")
-    public String update(@Valid @ModelAttribute(name = "dto") AuthUserCreateDto dto, BindingResult bindingResult) {
+    public String update( @ModelAttribute(name = "dto") AuthUserCreateDto dto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "auth/create";
         }

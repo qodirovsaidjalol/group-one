@@ -48,7 +48,7 @@ public class OrganizationServiceImpl extends AbstractService<OrganizationReposit
     public Void update(OrganizationUpdateDto updateDto) {
         return null;
     }
-
+ 
     @Override
     public List<OrganizationDto> getAll(GenericCriteria criteria) {
         return mapper.toDto(repository.findAll());

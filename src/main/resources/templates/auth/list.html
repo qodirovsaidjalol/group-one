@@ -24,10 +24,14 @@
                     <a th:href="@{/auth/detail/{id}/(id=${user.id})}">Details</a>
                 </td>
                 <td>
-                    <a th:href="@{/auth/block/{id}/(id=${user.id})}">🔐</a>
-                    <a th:href="@{/auth/unblock/{id}/(id=${user.id})}">🔓</a>
+
+                    <div th:switch="${user.isBlocked()}">
+                        <p th:case="${true}"><a th:href="@{/auth/block/{id}/(id=${user.id})}">🔐</a></p>
+                        <p th:case="${false}"><a th:href="@{/auth/unblock/{id}/(id=${user.id})}">🔓</a></p>
+                    </div>
+
                     <a th:href="@{/auth/delete/{id}/(id=${user.id})}">🗑</a>
-                    <a th:href="@{/auth/update/{id}/(id=${user.id})}"> ✏ </a>
+                    <!--                    <a th:href="@{/auth/update/{id}/(id=${user.id})}"> ✏ </a>-->
                 </td>
             </tr>
             </tbody>

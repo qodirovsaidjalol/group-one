@@ -16,6 +16,9 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Long>, Abstr
     @Query(value = "from Organization o where o.id=:id")
     Organization findOrg(Long id);
 
+    @Query(value = "update organization o set owner = ?id where o.id = ?orgId", nativeQuery = true)
+    void saveOwner(Long id, Long orgId);
+
     @Query(value = "from Role r where r.name=:name")
     Role findRoleByName(String name);
 

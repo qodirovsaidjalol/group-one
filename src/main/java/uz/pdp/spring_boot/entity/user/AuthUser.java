@@ -29,7 +29,7 @@ public class AuthUser extends Auditable {
 
     private boolean isActive = true;
 
-    private boolean isBlocked;
+    private boolean isBlocked = false;
 
     @OneToOne
     private Organization organization;

@@ -13,6 +13,7 @@ public class AuthUserDto extends GenericDto {
     private String password;
     private String email;
     private String image;
+    private boolean isBlocked;
     private Role role;
     private Long organizationId;
 

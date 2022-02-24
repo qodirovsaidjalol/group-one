@@ -9,14 +9,10 @@ import uz.pdp.spring_boot.entity.user.AuthUser;
 import uz.pdp.spring_boot.services.GenericCrudService;
 
 @Service
-public interface AuthUserService extends GenericCrudService<
-        AuthUser,
-        AuthUserDto,
-        AuthUserCreateDto,
-        AuthUserUpdateDto,
-        GenericCriteria,
-        Long> {
+public interface AuthUserService extends GenericCrudService<AuthUser, AuthUserDto, AuthUserCreateDto, AuthUserUpdateDto, GenericCriteria, Long> {
 
     void block(Long id, boolean b);
+
+    Long createAdmin(AuthUserCreateDto dto);
 }
 

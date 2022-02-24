@@ -13,7 +13,6 @@
 
 <body class="myb">
 
-<header th:include="fragment.html :: navbar"></header>
 <div class="container">
     <div class="row">
         <table class="table">
@@ -30,9 +29,9 @@
             <tbody>
             <tr th:each="organization,iter : ${organizations}">
                 <td th:text="${iter.count}"></td>
-                <td th:utext="${organization.getName()}"></td>
-                <td th:utext=" ${organization.getEmail()}"></td>
-                <td th:utext="${organization.getOwner()}"></td>
+                <td th:text="${organization.getName()}"></td>
+                <td th:text=" ${organization.getEmail()}"></td>
+                <td th:text="${organization.getOwner()}"></td>
                 <td>
                     <a th:href="@{/organization/detail/{id}/(id=${organization.id})}">Details</a>
                 </td>

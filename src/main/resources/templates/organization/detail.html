@@ -4,7 +4,6 @@
 </head>
 <body>
 <header>
-    <section th:include="fragment.html :: navbar"></section>
 </header>
 <main>
 
@@ -12,13 +11,18 @@
     <div class="container">
         <div class="row">
             <div class="col-4 mx-auto">
-                <ul>
-                    <li> class="h4" th:text="${organization.name}"</li>
-                    <li> class="h4" th:text="${organization.email}"</li>
-                    <li> class="h4" th:text="${organization.location}"</li>
-                    <li> class="h4" th:text="${organization.code}"</li>
-                    <li> class="h4" th:text="${organization.owner}"</li>
-                </ul>
+                <main>
+                    <img th:src="@{/assets/imges/logo}" alt="not found">
+                </main>
+                <div>
+                    <ul>
+                        <li class="h4" th:text="${organization.name}"></li>
+                        <li class="h4" th:text="${organization.email}"></li>
+                        <li class="h4" th:text="${organization.location}"></li>
+                        <li class="h4" th:text="${organization.code}"></li>
+                        <li class="h4" th:text="${organization.owner}"></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

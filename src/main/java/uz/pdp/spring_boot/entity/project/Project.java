@@ -2,6 +2,8 @@ package uz.pdp.spring_boot.entity.project;
 
 import lombok.Getter;
 import lombok.Setter;
+import uz.pdp.spring_boot.entity.Auditable;
+import uz.pdp.spring_boot.entity.BaseEntity;
 import uz.pdp.spring_boot.entity.organization.Organization;
 
 import javax.persistence.*;
@@ -10,15 +12,10 @@ import java.time.Instant;
 @Getter
 @Setter
 @Entity
-public class Project {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Project extends Auditable {
 
-    @Lob
     private String name;
 
-    @Lob
     private String tzPath;
 
     @ManyToOne(fetch = FetchType.LAZY)

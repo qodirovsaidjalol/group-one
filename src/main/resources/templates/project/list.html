@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragment.html :: header('Home Page')"></head>
+<body class="myb">
+
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th> Project Name</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="project,iter : ${projects}">
+                <td th:text="${iter.count}"></td>
+                <td th:href="@{/colum/list}" th:utext="${project.getName()}"></td>
+                <td>✅
+                <td th:utext="${project.getName()}"></td>
+                <td>
+                    <a th:href="@{/project/detail/{id}/(id=${project.id})}">Details</a>
+                </td>
+                <td>
+                    <a th:href="@{/project/block/{id}/(id=${project.id})}">🔐</a>
+                    <a th:href="@{/project/unblock/{id}/(id=${project.id})}">🔓</a>
+                    <a th:href="@{/project/delete/{id}/(id=${project.id})}">🗑</a>
+                    <a th:href="@{/project/update/{id}/(id=${project.id})}"> ✏ </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/project/create}" class="btn btn-success">➕ Add</a>
+    </div>
+</div>
+
+<section th:include="fragment.html :: js-files"></section>
+</body>
+</html>
+

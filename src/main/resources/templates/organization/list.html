@@ -10,15 +10,15 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Email</th>
                 <th>Owner</th>
-                <th>Detail</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="organization,iter : ${organizations}">
                 <td th:text="${iter.count}"></td>
+                <td th:href="@{/colum/list}" th:utext="${organization.getName()}"></td>
+                <td>✅
                 <td th:utext="${organization.getName()}"></td>
                 <td th:utext=" ${organization.getEmail()}"></td>
                 <td th:utext="${organization.getOwner()}"></td>
@@ -34,7 +34,7 @@
             </tr>
             </tbody>
         </table>
-        <a th:href="@{/todo/create}" class="btn btn-success">➕ Add</a>
+        <a th:href="@{/organization/create}" class="btn btn-success">➕ Add</a>
     </div>
 </div>
 

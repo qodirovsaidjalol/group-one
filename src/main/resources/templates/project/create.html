@@ -17,30 +17,13 @@
 <body>
 <div class="container">
     <div class="login-text">
-        <h3>Create Admin</h3>
+        <h3>Create Project</h3>
     </div>
 
     <div class="login-input">
-        <form th:action="@{/auth/create}" method="post" enctype="multipart/form-data" th:object="${organization}">
-
+        <form th:action="@{/project/create}" method="post" enctype="multipart/form-data">
             <label>
-                <input type="text" placeholder="Enter Admin name" name="username">
-            </label>
-
-            <label>
-                <input type="text" placeholder="Enter Admin Password" name="password">
-            </label>
-
-            <label>
-                <input type="hidden" th:value="${organization.getId()}" name="organizationId">
-            </label>
-
-            <label>
-                <input type="hidden" th:value="Admin" name="role_name">
-            </label>
-
-            <label>
-                <input type="text" placeholder="Enter Admin Email" name="email">
+                <input type="text" placeholder="Enter project name" name="name">
             </label>
 
             <div class="login-button">

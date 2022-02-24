@@ -36,11 +36,11 @@ public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, Aut
 
     @Override
     public Long create(AuthUserCreateDto createDto) {
-        MultipartFile file = createDto.getImage();
-        String logoPath = fileStorageService.store(file);
+        //MultipartFile file = createDto.getImage();
+      //  String logoPath = fileStorageService.store(file);
         AuthUser user = mapper.fromCreateDto(createDto);
-        user.setImage(logoPath);
-        user.setOrganization(organizationRepository.findOrganizationById(createDto.getOrganizationId()));
+       // user.setImage(logoPath);
+       user.setOrganization(organizationRepository.findOrganizationById(createDto.getOrganizationId()));
         user.setRole(roleRepository.findRoleByName(createDto.getRole_name()));
         repository.save(user);
         return null;

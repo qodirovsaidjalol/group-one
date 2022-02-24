@@ -7,9 +7,11 @@ import uz.pdp.spring_boot.criteria.GenericCriteria;
 import uz.pdp.spring_boot.dto.proect.ProjectCreateDto;
 import uz.pdp.spring_boot.dto.proect.ProjectDto;
 import uz.pdp.spring_boot.dto.proect.ProjectUpdateDto;
+import uz.pdp.spring_boot.entity.column.Colum;
 import uz.pdp.spring_boot.entity.organization.Organization;
 import uz.pdp.spring_boot.entity.project.Project;
 import uz.pdp.spring_boot.mapper.ProjectMapper;
+import uz.pdp.spring_boot.reposiroty.ColumRepository;
 import uz.pdp.spring_boot.reposiroty.ProjectRepository;
 import uz.pdp.spring_boot.services.AbstractService;
 import uz.pdp.spring_boot.utils.BaseUtils;
@@ -19,10 +21,12 @@ import java.util.Optional;
 
 @Service
 public class ProjectServiceImpl extends AbstractService<ProjectRepository, ProjectMapper> implements ProjectService {
-    @Autowired
 
-    protected ProjectServiceImpl(ProjectRepository repository, @Qualifier("projectMapperImpl") ProjectMapper mapper, BaseUtils baseUtils) {
+   private final ColumRepository columRepository;
+    @Autowired
+    protected ProjectServiceImpl(ProjectRepository repository, @Qualifier("projectMapperImpl") ProjectMapper mapper, BaseUtils baseUtils, ColumRepository columRepository) {
         super(repository, mapper, baseUtils);
+        this.columRepository = columRepository;
     }
 
     @Override
@@ -43,10 +47,15 @@ public class ProjectServiceImpl extends AbstractService<ProjectRepository, Proje
         repository.save(mapper.fromUpdateDto(updateDto));
         return null;
     }
+    @Override
+    public List<ProjectDto> getAllByOrg(Long id) {
+
+        return mapper.toDto(repository.getAllByOrg(id));
+    }
 
     @Override
     public List<ProjectDto> getAll(GenericCriteria criteria) {
-        return mapper.toDto(repository.findAll());
+        return null;
     }
 
     @Override
@@ -68,5 +77,12 @@ public class ProjectServiceImpl extends AbstractService<ProjectRepository, Proje
     @Override
     public Organization getOrg(Long id) {
         return repository.getOrg(id);
+    }
+
+    @Override
+    public List<Colum> getColum(Long id) {
+       return   columRepository.getColum(id);
+
+
     }
 }

@@ -9,7 +9,8 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Colum Name</th>
+                <th>Name</th>
+                <th>Owner</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -24,10 +25,9 @@
             </tr>
             </tbody>
         </table>
-        <a th:href="@{/colum/create}" class="btn btn-success">➕ Add</a>
+        <a th:href="@{/colum/create/{id}/(id=${projectId})}" class="btn btn-success">Colum Add</a>
     </div>
 </div>
-
 <section th:include="fragment.html :: js-files"></section>
 </body>
 </html>

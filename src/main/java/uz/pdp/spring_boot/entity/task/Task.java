@@ -15,7 +15,6 @@ public class Task {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne
     private Project project;
 

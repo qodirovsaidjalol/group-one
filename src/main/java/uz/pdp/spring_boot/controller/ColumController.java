@@ -17,19 +17,21 @@ import uz.pdp.spring_boot.services.colum.ColumServiceImpl;
 @RequestMapping("/colum/*")
 public class ColumController extends AbstractController<ColumService> {
 
-
     public ColumController(ColumService service) {
         super(service);
     }
 
-    @RequestMapping(value = "create",method = RequestMethod.GET)
-    public String create() {
+    @RequestMapping(value = "create/{id}",method = RequestMethod.GET)
+    public String create(@PathVariable Long id,Model model) {
+        model.addAttribute("projectId",id);
         return "colum/create";
     }
+
+   @ResponseBody
     @RequestMapping(value = "create",method = RequestMethod.POST)
     public String createPost( @ModelAttribute CreateColumDto dto) {
         service.create(dto);
-        return "redirect:colum/list";
+        return "created";
 
     }
 

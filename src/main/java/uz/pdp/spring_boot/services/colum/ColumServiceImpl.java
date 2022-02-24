@@ -1,6 +1,7 @@
 package uz.pdp.spring_boot.services.colum;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import uz.pdp.spring_boot.criteria.GenericCriteria;
 import uz.pdp.spring_boot.dto.colim.ColumDto;
@@ -17,7 +18,7 @@ import java.util.List;
 @Service
 public class ColumServiceImpl extends AbstractService<ColumRepository, ColumMapper> implements ColumService {
     @Autowired
-    protected ColumServiceImpl(ColumRepository repository, ColumMapper mapper, BaseUtils baseUtils) {
+    protected ColumServiceImpl(ColumRepository repository, @Qualifier("columMapperImpl") ColumMapper mapper, BaseUtils baseUtils) {
         super(repository, mapper, baseUtils);
     }
 
@@ -25,6 +26,7 @@ public class ColumServiceImpl extends AbstractService<ColumRepository, ColumMapp
     public Long create(CreateColumDto createDto) {
 
        Colum colum= mapper.fromCreateDto(createDto);
+       colum.setProject(repository.getProject(createDto.getProjectId()));
         repository.save(colum);
         return null;
     }

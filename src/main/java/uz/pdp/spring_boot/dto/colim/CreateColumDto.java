@@ -10,5 +10,6 @@ import uz.pdp.spring_boot.dto.Dto;
 @Builder
 public class CreateColumDto implements Dto {
     String name;
+    Long ProjectId;
 
 }

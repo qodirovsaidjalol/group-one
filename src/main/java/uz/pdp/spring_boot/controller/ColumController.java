@@ -24,6 +24,8 @@ public class ColumController extends AbstractController<ColumService> {
         return "colum/create";
     }
 
+
+
    @ResponseBody
     @RequestMapping(value = "create",method = RequestMethod.POST)
     public String createPost( @ModelAttribute CreateColumDto dto) {

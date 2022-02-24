@@ -15,33 +15,19 @@
             rel="stylesheet">
 </head>
 <body>
-
 <div class="container">
     <div class="login-text">
-        <h3>Create Organization</h3>
+        <h3>Create Project</h3>
     </div>
 
     <div class="login-input">
-        <form th:action="@{/organization/create}" method="post" enctype="multipart/form-data">
+        <form th:action="@{/project/create}" method="post" enctype="multipart/form-data">
             <label>
-                <input type="text" placeholder="Enter organization name" name="name">
-            </label>
-
-            <label>
-                <input type="text" placeholder="Enter organization Code" name="code">
-            </label>
-
-            <label>
-                <input type="text" placeholder="Enter organization Email" name="email">
-            </label>
-
-            <label>
-                <input type="file" id="image_uploads" placeholder="Enter organization logo" name="logo"
-                       accept=".jpg, .jpeg, .png, .img" multiple/>
+                <input type="text" placeholder="Enter project name" name="name">
             </label>
 
             <div class="login-button">
-                <button type="submit">➕ Save</button>
+                <button type="submit">Save</button>
             </div>
         </form>
     </div>

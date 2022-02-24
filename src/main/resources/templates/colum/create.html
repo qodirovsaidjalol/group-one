@@ -15,31 +15,20 @@
             rel="stylesheet">
 </head>
 <body>
-
 <div class="container">
     <div class="login-text">
-        <h3>Create Organization</h3>
+        <h3>Create Colum</h3>
     </div>
 
     <div class="login-input">
-        <form th:action="@{/organization/create}" method="post" enctype="multipart/form-data">
-            <label>
-                <input type="text" placeholder="Enter organization name" name="name">
-            </label>
+        <form th:action="@{/colum/create}" method="post" enctype="multipart/form-data">
 
             <label>
-                <input type="text" placeholder="Enter organization Code" name="code">
+                <input type="text" placeholder="Enter colum name" name="name">
             </label>
-
             <label>
-                <input type="text" placeholder="Enter organization Email" name="email">
+                <input type="hidden" th:value="${projectId}" name="projectId">
             </label>
-
-            <label>
-                <input type="file" id="image_uploads" placeholder="Enter organization logo" name="logo"
-                       accept=".jpg, .jpeg, .png, .img" multiple/>
-            </label>
-
             <div class="login-button">
                 <button type="submit">➕ Save</button>
             </div>

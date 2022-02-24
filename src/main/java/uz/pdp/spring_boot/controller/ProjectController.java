@@ -45,8 +45,8 @@ public class ProjectController extends AbstractController<ProjectService> {
         return "project/list";
     }
 
-    @RequestMapping("add")
-    public String addMembers() {
+    @RequestMapping("detail/{id}")
+    public String addMembers(Model model, @PathVariable Long id) {
 
         return "redirect:/project/detail/";
     }

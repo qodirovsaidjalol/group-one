@@ -38,11 +38,11 @@ public class OrganizationController extends AbstractController<OrganizationServi
     @RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable(name = "id") Long id) {
         service.delete(id);
-        return "redirect:/organization/list/";
+        return "redirect:/organization/list";
     }
 
 
-    @RequestMapping(value = "update/{id}/", method = RequestMethod.GET)
+    @RequestMapping(value = "update/{id}", method = RequestMethod.GET)
     public String updatePage(@PathVariable Long id) {
         return "organization/update";
     }
@@ -52,7 +52,7 @@ public class OrganizationController extends AbstractController<OrganizationServi
         return "redirect:/";
     }
 
-    @RequestMapping("detail/{id}/")
+    @RequestMapping("detail/{id}")
     public String detail(Model model, @PathVariable(name = "id") Long id) {
         model.addAttribute("organization", service.get(id));
         return "organization/detail";
@@ -65,25 +65,25 @@ public class OrganizationController extends AbstractController<OrganizationServi
     }
 
 
-    @RequestMapping(value = "block/{id}/", method = RequestMethod.GET)
+    @RequestMapping(value = "block/{id}", method = RequestMethod.GET)
     public String blockPage(Model model, @PathVariable(name = "id") Long id) {
         model.addAttribute("user", service.get(id));
         return "auth/block";
     }
 
-    @RequestMapping(value = "block/{id}/", method = RequestMethod.POST)
+    @RequestMapping(value = "block/{id}", method = RequestMethod.POST)
     public String block(@PathVariable(name = "id") Long id) {
         service.block(id, false);
         return "redirect:/auth/list";
     }
 
-    @RequestMapping(value = "unblock/{id}/", method = RequestMethod.GET)
+    @RequestMapping(value = "unblock/{id}", method = RequestMethod.GET)
     public String unblockPage(Model model, @PathVariable(name = "id") Long id) {
         model.addAttribute("user", service.get(id));
         return "auth/unblock";
     }
 
-    @RequestMapping(value = "unblock/{id}/", method = RequestMethod.POST)
+    @RequestMapping(value = "unblock/{id}", method = RequestMethod.POST)
     public String unblock(@PathVariable(name = "id") Long id) {
         service.block(id, true);
         return "redirect:/auth/list";

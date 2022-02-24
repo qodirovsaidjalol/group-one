@@ -11,8 +11,6 @@ import uz.pdp.spring_boot.dto.auth.AuthUserCreateDto;
 import uz.pdp.spring_boot.services.auth.AuthUserService;
 import uz.pdp.spring_boot.services.auth.AuthUserServiceImpl;
 
-import javax.validation.Valid;
-
 @Controller
 @RequestMapping("/auth/*")
 public class AuthController extends AbstractController<AuthUserService> {
@@ -27,14 +25,18 @@ public class AuthController extends AbstractController<AuthUserService> {
         model.addAttribute("dto", new AuthUserCreateDto());
         return "auth/create";
     }
+    @GetMapping(value = {"/auth/login"})
+    public String loginPage() {
+        return "login";
+    }
 
     @PostMapping("create")
-    public String userCreate(@Valid @ModelAttribute(name = "dto") AuthUserCreateDto dto, BindingResult bindingResult) {
+    public String userCreate( @ModelAttribute(name = "dto") AuthUserCreateDto dto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "auth/create";
         }
         service.create(dto);
-        return "auth/list";
+        return "redirect:/auth/list";
     }
 
     @GetMapping("update/{id}")
@@ -44,7 +46,7 @@ public class AuthController extends AbstractController<AuthUserService> {
     }
 
     @PostMapping("update")
-    public String update(@Valid @ModelAttribute(name = "dto") AuthUserCreateDto dto, BindingResult bindingResult) {
+    public String update( @ModelAttribute(name = "dto") AuthUserCreateDto dto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "auth/create";
         }
@@ -53,37 +55,37 @@ public class AuthController extends AbstractController<AuthUserService> {
     }
 
 
-    @RequestMapping(value = "delete/{id}/", method = RequestMethod.GET)
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public String deletePage(Model model, @PathVariable(name = "id") Long id) {
         model.addAttribute("user", service.get(id));
         return "auth/delete";
     }
 
-    @RequestMapping(value = "delete/{id}/", method = RequestMethod.POST)
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable(name = "id") Long id) {
         service.delete(id);
         return "redirect:/auth/list";
     }
 
-    @RequestMapping(value = "block/{id}/", method = RequestMethod.GET)
+    @RequestMapping(value = "block/{id}", method = RequestMethod.GET)
     public String blockPage(Model model, @PathVariable(name = "id") Long id) {
         model.addAttribute("user", service.get(id));
         return "auth/block";
     }
 
-    @RequestMapping(value = "block/{id}/", method = RequestMethod.POST)
+    @RequestMapping(value = "block/{id}", method = RequestMethod.POST)
     public String block(@PathVariable(name = "id") Long id) {
         service.block(id, false);
         return "redirect:/auth/list";
     }
 
-    @RequestMapping(value = "unblock/{id}/", method = RequestMethod.GET)
+    @RequestMapping(value = "unblock/{id}", method = RequestMethod.GET)
     public String unblockPage(Model model, @PathVariable(name = "id") Long id) {
         model.addAttribute("user", service.get(id));
         return "auth/unblock";
     }
 
-    @RequestMapping(value = "unblock/{id}/", method = RequestMethod.POST)
+    @RequestMapping(value = "unblock/{id}", method = RequestMethod.POST)
     public String unblock(@PathVariable(name = "id") Long id) {
         service.block(id, true);
         return "redirect:/auth/list";
@@ -95,7 +97,7 @@ public class AuthController extends AbstractController<AuthUserService> {
         return "auth/list";
     }
 
-    @RequestMapping("detail/{id}/")
+    @RequestMapping("detail/{id}")
     public String detail(Model model, @PathVariable(name = "id") Long id) {
         model.addAttribute("user", service.get(id));
         return "auth/detail";

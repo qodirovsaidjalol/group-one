@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragment.html :: header('Organization Delete Page')">
+</head>
 <body>
 <header>
-
+    <section th:include="fragment.html :: navbar"></section>
 </header>
 <main>
+
+    <h1>Detail User Page</h1>
     <div class="container">
         <div class="row">
-            <div class="col-6 offset-3">
-                <p class="h4" th:text="${user.username}"></p>
-                <p class="h4" th:text="${user.email}"></p>
-                <p class="h4" th:text="${user.id}"></p>
-
-                <img class="mr-3" width="120" height="180" th:src="@{${user.image}}"
-                     th:alt="${user.username}"/>
-                <form method="get" th:action="@{/auth/list}">
-                    <button type="submit" class="btn btn-warning">Back</button>
-                </form>
+            <main>
+                <img th:src="@{/assets/imges/logo}" alt="not found">
+            </main>
+            <div class="col-4 mx-auto">
+                <ul>
+                    <li th:text="${user.username}"></li>
+                    <li th:text="${user.email}"></li>
+                    <li th:text="${user.id}"></li>
+                </ul>
             </div>
         </div>
     </div>

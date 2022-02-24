@@ -4,14 +4,11 @@ import lombok.*;
 import uz.pdp.spring_boot.dto.GenericDto;
 import uz.pdp.spring_boot.entity.rele.Role;
 
-import javax.validation.constraints.Size;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuthUserDto extends GenericDto {
-    @Size(min = 3, message = "min size 3")
     private String username;
     private String password;
     private String email;

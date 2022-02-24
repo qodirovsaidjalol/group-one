@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragment.html :: header('Home Page')"></head>
+
+
+<head th:fragment="header(name)">
+    <meta charset="UTF-8">
+    <title th:text="${name}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
 <body class="myb">
 
 <div class="container">
@@ -10,18 +20,18 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>Email</th>
                 <th>Owner</th>
+                <th>Detail</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="organization,iter : ${organizations}">
                 <td th:text="${iter.count}"></td>
-                <td th:href="@{/colum/list}" th:utext="${organization.getName()}"></td>
-                <td>✅
-                <td th:utext="${organization.getName()}"></td>
-                <td th:utext=" ${organization.getEmail()}"></td>
-                <td th:utext="${organization.getOwner()}"></td>
+                <td th:text="${organization.getName()}"></td>
+                <td th:text=" ${organization.getEmail()}"></td>
+                <td th:text="${organization.getOwner()}"></td>
                 <td>
                     <a th:href="@{/organization/detail/{id}/(id=${organization.id})}">Details</a>
                 </td>

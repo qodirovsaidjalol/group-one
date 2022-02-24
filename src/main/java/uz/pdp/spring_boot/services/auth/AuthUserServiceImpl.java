@@ -22,15 +22,11 @@ import java.util.List;
 @Service
 public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, AuthUserMapper> implements AuthUserService {
 
-    private final OrganizationRepository organizationRepository;
-    private final RoleRepository roleRepository;
     private final FileStorageService fileStorageService;
 
     @Autowired
     protected AuthUserServiceImpl(AuthUserRepository repository, @Qualifier("authUserMapperImpl") AuthUserMapper mapper, BaseUtils baseUtils, OrganizationRepository organizationRepository, RoleRepository roleRepository, FileStorageService fileStorageService) {
         super(repository, mapper, baseUtils);
-        this.organizationRepository = organizationRepository;
-        this.roleRepository = roleRepository;
         this.fileStorageService = fileStorageService;
     }
 
@@ -40,8 +36,8 @@ public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, Aut
         String logoPath = fileStorageService.store(file);
         AuthUser user = mapper.fromCreateDto(createDto);
         user.setImage(logoPath);
-        user.setOrganization(organizationRepository.findOrganizationById(createDto.getOrganizationId()));
-        user.setRole(roleRepository.findRoleByName(createDto.getRole_name()));
+        user.setOrganization(repository.findOrg(createDto.getOrganizationId()));
+        user.setRole(repository.findRoleByName(createDto.getRole_name()));
         repository.save(user);
         return null;
     }

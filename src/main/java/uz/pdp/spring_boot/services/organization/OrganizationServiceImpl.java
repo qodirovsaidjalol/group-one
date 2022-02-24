@@ -18,7 +18,8 @@ import uz.pdp.spring_boot.utils.BaseUtils;
 import java.util.List;
 
 @Service
-public class OrganizationServiceImpl extends AbstractService<OrganizationRepository, OrganizationMapper> implements OrganizationService {
+public class OrganizationServiceImpl extends AbstractService<OrganizationRepository, OrganizationMapper>
+        implements OrganizationService {
 
     private final FileStorageService fileStorageService;
 
@@ -46,11 +47,13 @@ public class OrganizationServiceImpl extends AbstractService<OrganizationReposit
 
     @Override
     public Void update(OrganizationUpdateDto updateDto) {
+
         return null;
     }
  
     @Override
     public List<OrganizationDto> getAll(GenericCriteria criteria) {
+
         return mapper.toDto(repository.findAll());
     }
 
@@ -65,6 +68,7 @@ public class OrganizationServiceImpl extends AbstractService<OrganizationReposit
 
     @Override
     public Long totalCount(GenericCriteria criteria) {
+
         return null;
     }
 

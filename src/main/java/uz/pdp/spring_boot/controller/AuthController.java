@@ -2,10 +2,12 @@ package uz.pdp.spring_boot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import uz.pdp.spring_boot.config.UserDetails;
 import uz.pdp.spring_boot.criteria.GenericCriteria;
 import uz.pdp.spring_boot.dto.auth.AuthUserCreateDto;
 import uz.pdp.spring_boot.services.auth.AuthUserService;
@@ -21,21 +23,28 @@ public class AuthController extends AbstractController<AuthUserService> {
     }
 
     @GetMapping("create")
-    public String userCreatePage(Model model) {
-        model.addAttribute("dto", new AuthUserCreateDto());
+    public String createPage(Model model) {
+        model.addAttribute("admin", service.get(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()));
         return "auth/create";
     }
+
     @GetMapping(value = {"/auth/login"})
     public String loginPage() {
         return "login";
     }
 
     @PostMapping("create")
-    public String userCreate( @ModelAttribute(name = "dto") AuthUserCreateDto dto, BindingResult bindingResult) {
+    public String create(@ModelAttribute(name = "dto") AuthUserCreateDto dto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "auth/create";
         }
         service.create(dto);
+        return "redirect:/auth/list";
+    }
+
+    @PostMapping("createAdmin")
+    public String createAdmin(@ModelAttribute(name = "dto") AuthUserCreateDto dto, BindingResult bindingResult) {
+        service.createAdmin(dto);
         return "redirect:/auth/list";
     }
 
@@ -46,7 +55,7 @@ public class AuthController extends AbstractController<AuthUserService> {
     }
 
     @PostMapping("update")
-    public String update( @ModelAttribute(name = "dto") AuthUserCreateDto dto, BindingResult bindingResult) {
+    public String update(@ModelAttribute(name = "dto") AuthUserCreateDto dto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "auth/create";
         }

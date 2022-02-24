@@ -36,8 +36,12 @@
                     <a th:href="@{/organization/detail/{id}/(id=${organization.id})}">Details</a>
                 </td>
                 <td>
-                    <a th:href="@{/organization/block/{id}/(id=${organization.id})}">🔐</a>
-                    <a th:href="@{/organization/unblock/{id}/(id=${organization.id})}">🔓</a>
+                    <div th:switch="${organization.isBlocked()}">
+                        <p th:case="${true}"><a th:href="@{/organization/block/{id}/(id=${organization.id})}">🔐</a></p>
+                        <p th:case="${false}"><a th:href="@{/organization/unblock/{id}/(id=${organization.id})}">🔓</a>
+                        </p>
+                    </div>
+
                     <a th:href="@{/organization/delete/{id}/(id=${organization.id})}">🗑</a>
                     <a th:href="@{/organization/update/{id}/(id=${organization.id})}"> ✏ </a>
                 </td>

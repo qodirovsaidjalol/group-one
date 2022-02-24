@@ -3,10 +3,7 @@ package uz.pdp.spring_boot.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import uz.pdp.spring_boot.criteria.GenericCriteria;
 import uz.pdp.spring_boot.dto.organization.OrganizationCreateDto;
 import uz.pdp.spring_boot.services.organization.OrganizationService;
@@ -70,25 +67,25 @@ public class OrganizationController extends AbstractController<OrganizationServi
 
     @RequestMapping(value = "block/{id}", method = RequestMethod.GET)
     public String blockPage(Model model, @PathVariable(name = "id") Long id) {
-        model.addAttribute("user", service.get(id));
-        return "auth/block";
+        model.addAttribute("organization", service.get(id));
+        return "organization/block";
     }
 
     @RequestMapping(value = "block/{id}", method = RequestMethod.POST)
     public String block(@PathVariable(name = "id") Long id) {
         service.block(id, false);
-        return "redirect:/auth/list";
+        return "redirect:/organization/list";
     }
 
     @RequestMapping(value = "unblock/{id}", method = RequestMethod.GET)
     public String unblockPage(Model model, @PathVariable(name = "id") Long id) {
-        model.addAttribute("user", service.get(id));
-        return "auth/unblock";
+        model.addAttribute("organization", service.get(id));
+        return "organization/unblock";
     }
 
     @RequestMapping(value = "unblock/{id}", method = RequestMethod.POST)
     public String unblock(@PathVariable(name = "id") Long id) {
         service.block(id, true);
-        return "redirect:/auth/list";
+        return "redirect:/organization/list";
     }
 }

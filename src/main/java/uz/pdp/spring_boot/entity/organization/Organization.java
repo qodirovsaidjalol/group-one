@@ -14,7 +14,6 @@ public class Organization extends Auditable {
 
     @Column(nullable = false, length = 100)
     private String name;
-
     private String logo;
 
     private String email;

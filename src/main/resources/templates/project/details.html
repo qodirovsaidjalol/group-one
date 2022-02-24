@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragment.html :: header('Home Page')"></head>
+<body class="myb">
+
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Owner</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="colum,iter : ${columns}">
+                <td th:text="${iter.count}"></td>
+                <td th:utext="${colum.getName()}"></td>
+                <td>✅
+                    <a th:href="@{/colum/delete/{id}/(id=${colum.id})}">🗑</a>
+                    <a th:href="@{/colum/create/{id}/(id=${colum.id})}"> ✏ </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/colum/create/{id}/(id=${projectId})}" class="btn btn-success">Colum Add</a>
+    </div>
+</div>
+<section th:include="fragment.html :: js-files"></section>
+</body>
+</html>

@@ -8,5 +8,5 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GenericDto implements Dto {
-    private Long id;
+    public Long id;
 }

@@ -9,12 +9,14 @@ import uz.pdp.spring_boot.criteria.GenericCriteria;
 import uz.pdp.spring_boot.dto.auth.AuthUserCreateDto;
 import uz.pdp.spring_boot.dto.auth.AuthUserDto;
 import uz.pdp.spring_boot.dto.auth.AuthUserUpdateDto;
+import uz.pdp.spring_boot.entity.organization.Organization;
 import uz.pdp.spring_boot.entity.user.AuthUser;
 import uz.pdp.spring_boot.mapper.AuthUserMapper;
 import uz.pdp.spring_boot.reposiroty.AuthUserRepository;
 import uz.pdp.spring_boot.reposiroty.OrganizationRepository;
 import uz.pdp.spring_boot.reposiroty.RoleRepository;
 import uz.pdp.spring_boot.services.AbstractService;
+import uz.pdp.spring_boot.reposiroty.OrganizationRepository;
 import uz.pdp.spring_boot.services.organization.file.FileStorageService;
 import uz.pdp.spring_boot.utils.BaseUtils;
 
@@ -25,12 +27,14 @@ public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, Aut
 
     private final FileStorageService fileStorageService;
     private final PasswordEncoderConfigurations encoder;
+    private final OrganizationRepository organizationService;
 
     @Autowired
-    protected AuthUserServiceImpl(AuthUserRepository repository, @Qualifier("authUserMapperImpl") AuthUserMapper mapper, BaseUtils baseUtils, OrganizationRepository organizationRepository, RoleRepository roleRepository, FileStorageService fileStorageService, PasswordEncoderConfigurations encoder) {
+    protected AuthUserServiceImpl(AuthUserRepository repository, @Qualifier("authUserMapperImpl") AuthUserMapper mapper, BaseUtils baseUtils, FileStorageService fileStorageService, PasswordEncoderConfigurations encoder, OrganizationRepository organizationService) {
         super(repository, mapper, baseUtils);
         this.fileStorageService = fileStorageService;
         this.encoder = encoder;
+        this.organizationService = organizationService;
     }
 
     @Override
@@ -42,7 +46,14 @@ public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, Aut
         user.setImage(logoPath);
         user.setOrganization(repository.findOrg(createDto.getOrganizationId()));
         user.setRole(repository.findRoleByName(createDto.getRole_name()));
-        repository.save(user);
+        return repository.save(user).getId();
+    }
+
+    public Long createAdmin(AuthUserCreateDto createDto) {
+        AuthUser user = repository.findAuthUserById(create(createDto));
+        Organization organization = repository.findOrg(user.getOrganization().getId());
+        organization.setOwner(user.getId());
+        organizationService.save(organization);
         return null;
     }
 
@@ -80,7 +91,8 @@ public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, Aut
 
     public void block(Long id, boolean b) {
         AuthUser user = repository.findAuthUserById(id);
-        user.setBlocked(!b);
+        boolean a = !b;
+        user.setBlocked(a);
         repository.save(user);
     }
 }

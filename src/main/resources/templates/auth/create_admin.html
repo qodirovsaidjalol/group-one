@@ -21,7 +21,7 @@
     </div>
 
     <div class="login-input">
-        <form th:action="@{/auth/create}" method="post" enctype="multipart/form-data" th:object="${organization}">
+        <form th:action="@{/auth/createAdmin}" method="post" enctype="multipart/form-data" th:object="${organization}">
 
             <label>
                 <input type="text" placeholder="Enter Admin name" name="username">
@@ -32,7 +32,7 @@
             </label>
 
             <label>
-                <input type="hidden" th:value="${organization.id}" name="organizationId">
+                <input type="hidden" th:value="${organization.getId()}" name="organizationId">
             </label>
 
             <label>

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import uz.pdp.spring_boot.config.PasswordEncoderConfigurations;
 import uz.pdp.spring_boot.criteria.GenericCriteria;
 import uz.pdp.spring_boot.dto.auth.AuthUserCreateDto;
 import uz.pdp.spring_boot.dto.auth.AuthUserDto;
@@ -22,26 +23,25 @@ import java.util.List;
 @Service
 public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, AuthUserMapper> implements AuthUserService {
 
-    private final OrganizationRepository organizationRepository;
-    private final RoleRepository roleRepository;
     private final FileStorageService fileStorageService;
+    private final PasswordEncoderConfigurations encoder;
 
     @Autowired
-    protected AuthUserServiceImpl(AuthUserRepository repository, @Qualifier("authUserMapperImpl") AuthUserMapper mapper, BaseUtils baseUtils, OrganizationRepository organizationRepository, RoleRepository roleRepository, FileStorageService fileStorageService) {
+    protected AuthUserServiceImpl(AuthUserRepository repository, @Qualifier("authUserMapperImpl") AuthUserMapper mapper, BaseUtils baseUtils, OrganizationRepository organizationRepository, RoleRepository roleRepository, FileStorageService fileStorageService, PasswordEncoderConfigurations encoder) {
         super(repository, mapper, baseUtils);
-        this.organizationRepository = organizationRepository;
-        this.roleRepository = roleRepository;
         this.fileStorageService = fileStorageService;
+        this.encoder = encoder;
     }
 
     @Override
     public Long create(AuthUserCreateDto createDto) {
-        //MultipartFile file = createDto.getImage();
-      //  String logoPath = fileStorageService.store(file);
+        MultipartFile file = createDto.getImage();
+        String logoPath = fileStorageService.store(file);
         AuthUser user = mapper.fromCreateDto(createDto);
-       // user.setImage(logoPath);
-       user.setOrganization(organizationRepository.findOrganizationById(createDto.getOrganizationId()));
-        user.setRole(roleRepository.findRoleByName(createDto.getRole_name()));
+        user.setPassword(encoder.passwordEncoder().encode(user.getPassword()));
+        user.setImage(logoPath);
+        user.setOrganization(repository.findOrg(createDto.getOrganizationId()));
+        user.setRole(repository.findRoleByName(createDto.getRole_name()));
         repository.save(user);
         return null;
     }

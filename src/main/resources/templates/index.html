@@ -33,7 +33,7 @@
     </main>
 
     <aside>
-        <nav>
+        <nav id="index-nav">
             <div class="input">
                 <div>
                     <i class="fas fa-search"></i>
@@ -51,10 +51,11 @@
                 </div>
 
                 <div class="user">
-                    <img src="./assets/imges/useer.png" alt="">
-                    <p>Azhar I.
-                        <i class="fas fa-angle-down"></i>
-                    </p>
+                    <img src="../assets/imges/useer.png" alt="">
+                    <details>
+                        <summary>Saidjalol Qodirov.</summary>
+                        <a th:href="@{/auth/logout}">Logout</a>
+                    </details>
                 </div>
 
             </div>

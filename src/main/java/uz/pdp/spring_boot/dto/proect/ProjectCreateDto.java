@@ -10,7 +10,7 @@ import uz.pdp.spring_boot.entity.organization.Organization;
 @Setter
 @Builder
 public class ProjectCreateDto implements Dto {
-    String name;
-    String tzPhat;
-    Organization organization;
+    private String name;
+    private String tzPhat;
+    private Organization organization;
 }

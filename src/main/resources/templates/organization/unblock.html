@@ -18,7 +18,7 @@
 <div class="container">
     <h3>Unblock organization</h3>
 
-    <form method="post" th:action="@{/organization/unblock/{id}(id=${organization.id})}">
+    <form method="post" th:action="@{/organization/block/{id}(id=${organization.id})}">
 
         <div class="btn">
             <a th:href="@{/organization/list}">
@@ -28,11 +28,46 @@
         </div>
 
     </form>
-
-<!--    <div class="btn">-->
-<!--        <button type="submit">No</button>-->
-<!--        <button type="submit">Yes</button>-->
-<!--    </div>-->
 </div>
 </body>
 </html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Log out</title>-->
+
+<!--    <link rel="preconnect" href="https://fonts.googleapis.com">-->
+<!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+<!--    <link-->
+<!--            href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&display=swap"-->
+<!--            rel="stylesheet">-->
+
+<!--    <link rel="stylesheet" th:href="@{/css/logout.css}">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <h3>Unblock organization</h3>-->
+
+<!--    <form method="post" th:action="@{/organization/unblock/{id}(id=${organization.id})}">-->
+
+<!--        <div class="btn">-->
+<!--            <a th:href="@{/organization/list}">-->
+<!--                <button type="submit">No</button>-->
+<!--            </a>-->
+<!--            <button type="submit">Yes</button>-->
+<!--        </div>-->
+
+<!--    </form>-->
+
+<!--&lt;!&ndash;    <div class="btn">&ndash;&gt;-->
+<!--&lt;!&ndash;        <button type="submit">No</button>&ndash;&gt;-->
+<!--&lt;!&ndash;        <button type="submit">Yes</button>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

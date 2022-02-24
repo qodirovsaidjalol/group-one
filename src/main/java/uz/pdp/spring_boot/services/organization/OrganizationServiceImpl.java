@@ -50,7 +50,7 @@ public class OrganizationServiceImpl extends AbstractService<OrganizationReposit
 
         return null;
     }
- 
+
     @Override
     public List<OrganizationDto> getAll(GenericCriteria criteria) {
 

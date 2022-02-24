@@ -1,45 +1,111 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragment.html :: header('Home Page')"></head>
+<head th:include="fragment.html :: header('Home Page')"><title></title></head>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index html one</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&family=Rubik:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+</head>
+
 <body class="myb">
 
-<div class="container">
-    <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Detail</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="user,iter : ${users}">
-                <td th:text="${iter.count}"></td>
-                <td th:utext="${user.getUsername()}"></td>
-                <td th:utext=" ${user.getEmail()}"></td>
-                <td>
-                    <a th:href="@{/auth/detail/{id}/(id=${user.id})}">Details</a>
-                </td>
-                <td>
 
-                    <div th:switch="${user.isBlocked()}">
-                        <p th:case="${true}"><a th:href="@{/auth/block/{id}/(id=${user.id})}">🔐</a></p>
-                        <p th:case="${false}"><a th:href="@{/auth/unblock/{id}/(id=${user.id})}">🔓</a></p>
-                    </div>
+<header>
+    <main>
+        <div class="menu-bar">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">
+            <img src="../assets/imges/logo.png"
+                 alt="not found"/>
+        </div>
 
-                    <a th:href="@{/auth/delete/{id}/(id=${user.id})}">🗑</a>
-                    <!--                    <a th:href="@{/auth/update/{id}/(id=${user.id})}"> ✏ </a>-->
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <a th:href="@{/auth/create}" class="btn btn-success">➕ Add</a>
-    </div>
-</div>
+    </main>
 
-<section th:include="fragment.html :: js-files"></section>
+    <aside>
+        <nav th:include="index.html::#index-nav"></nav>
+
+        <div class="container">
+            <div class="row">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Detail</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user,iter : ${users}">
+                        <td th:text="${iter.count}"></td>
+                        <td th:utext="${user.getUsername()}"></td>
+                        <td th:utext=" ${user.getEmail()}"></td>
+                        <td>
+                            <a th:href="@{/auth/detail/{id}/(id=${user.id})}">Details</a>
+
+                        </td>
+                        <td>
+
+                            <div th:switch="${user.isBlocked()}">
+                                <p th:case="${true}">
+                                </p>
+                                <p th:case="${false}">
+                                </p>
+                            </div>
+
+                            <a th:href="@{/auth/unblock/{id}/(id=${user.id})}">🔓</a>
+                            <a th:href="@{/auth/block/{id}/(id=${user.id})}">🔐</a>
+                            <a th:href="@{/auth/delete/{id}/(id=${user.id})}">🗑</a>
+                            <!--                    <a th:href="@{/auth/update/{id}/(id=${user.id})}"> ✏ </a>-->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <a th:href="@{/auth/create}" class="btn btn-success">➕ Add</a>
+            </div>
+        </div>
+
+    </aside>
+
+</header>
+
 </body>
 </html>
+
+<!--<nav>-->
+<!--    <div class="input">-->
+<!--        <div>-->
+<!--            <i class="fas fa-search"></i>-->
+<!--        </div>-->
+
+<!--        <label>-->
+<!--            <input type="text" placeholder="Search">-->
+<!--        </label>-->
+<!--    </div>-->
+
+<!--    <div class="user-information">-->
+<!--        <div class="icon">-->
+<!--            <img src="assets/imges/bell.png" alt="">-->
+<!--            <i class="far fa-envelope"></i>-->
+<!--        </div>-->
+
+<!--        <div class="user">-->
+<!--            <img src="./assets/imges/useer.png" alt="">-->
+<!--            <p>Azhar I.-->
+<!--                <i class="fas fa-angle-down"></i>-->
+<!--            </p>-->
+<!--        </div>-->
+
+<!--    </div>-->
+
+<!--</nav>-->

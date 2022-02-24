@@ -46,7 +46,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
                         .loginProcessingUrl("/auth/login")
                         .usernameParameter("username")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/", true))
+                        .defaultSuccessUrl("/home", true))
                 .rememberMe((httpSecurityRememberMeConfigurer) ->
                         httpSecurityRememberMeConfigurer
                                 .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))

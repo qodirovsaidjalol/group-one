@@ -18,13 +18,14 @@
 <div class="container">
     <h3>Block organization</h3>
 
-    <form method="post" th:action="@{/organization/block/{id}(id=${organization.id})}">
+    <form>
 
         <div class="btn">
             <a th:href="@{/organization/list}">
                 <button type="submit">No</button>
             </a>
-            <button type="submit">Yes</button>
+            <button method="post" th:action="@{/organization/block/{id}(id=${organization.id})}" type="submit">Yes
+            </button>
         </div>
 
     </form>

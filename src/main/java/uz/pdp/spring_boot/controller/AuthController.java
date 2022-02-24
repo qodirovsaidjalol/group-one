@@ -28,6 +28,12 @@ public class AuthController extends AbstractController<AuthUserService> {
         return "auth/create";
     }
 
+    @RequestMapping(value = {"/index"}, method = RequestMethod.GET)
+    public String index(Model model) {
+        model.addAttribute("user", service.get(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()));
+        return "index";
+    }
+
     @GetMapping(value = {"/auth/login"})
     public String loginPage() {
         return "login";

@@ -24,10 +24,13 @@
             <i class="fas fa-bars"></i>
         </div>
         <div class="logo">
-            <img src="../assets/imges/logo.png"
-                 th:src="@{../assets/imges/logo.png}" alt="not found"/>
+            <img src="./assets/imges/logo.png" alt="">
         </div>
 
+        <div class="link">
+            <a th:href="@{/project/list}">Projects</a>
+            <a th:href="@{/auth/listOrg}">Users</a>
+        </div>
     </main>
 
     <aside>
@@ -59,23 +62,6 @@
 
         </nav>
 
-        <h1>Detail Organization Page</h1>
-        <div class="container">
-            <div class="row">
-                <div class="col-4 mx-auto">
-                    <div>
-                        <img th:src="@{/assets/imges/logo}" alt="not found">
-                        <ul>
-                            <li class="h4" th:text="${organization.name}"></li>
-                            <li class="h4" th:text="${organization.email}"></li>
-                            <li class="h4" th:text="${organization.location}"></li>
-                            <li class="h4" th:text="${organization.code}"></li>
-                            <li class="h4" th:text="${organization.owner}"></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
 
     </aside>
 

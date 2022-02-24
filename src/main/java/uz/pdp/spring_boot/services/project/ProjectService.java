@@ -19,7 +19,7 @@ public interface ProjectService extends GenericCrudService<Project,
         ProjectUpdateDto,
         GenericCriteria,
         Long> {
-   public Organization getOrg(Long id);
+    public Organization getOrg(Long id);
 
     List<Colum> getColum(Long id);
 

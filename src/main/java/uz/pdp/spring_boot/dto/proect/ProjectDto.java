@@ -15,12 +15,8 @@ import javax.persistence.ManyToOne;
 @Setter
 @NoArgsConstructor
 public class ProjectDto extends GenericDto {
-
-
     private String name;
-
     private String tzPath;
-
     private Boolean closed;
 
     @Builder(builderMethodName = "childBuilder")

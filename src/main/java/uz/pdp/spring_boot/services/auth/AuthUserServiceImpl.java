@@ -14,9 +14,7 @@ import uz.pdp.spring_boot.entity.user.AuthUser;
 import uz.pdp.spring_boot.mapper.AuthUserMapper;
 import uz.pdp.spring_boot.reposiroty.AuthUserRepository;
 import uz.pdp.spring_boot.reposiroty.OrganizationRepository;
-import uz.pdp.spring_boot.reposiroty.RoleRepository;
 import uz.pdp.spring_boot.services.AbstractService;
-import uz.pdp.spring_boot.reposiroty.OrganizationRepository;
 import uz.pdp.spring_boot.services.organization.file.FileStorageService;
 import uz.pdp.spring_boot.utils.BaseUtils;
 
@@ -82,6 +80,10 @@ public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, Aut
     @Override
     public AuthUserDto get(Long id) {
         return mapper.toDto(repository.findAuthUserById(id));
+    }
+
+    public AuthUser getUser(Long id) {
+        return repository.findAuthUserById(id);
     }
 
     @Override

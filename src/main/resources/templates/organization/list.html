@@ -1,58 +1,108 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragment.html :: header('Home Page')"></head>
+<head th:include="fragment.html :: header('Home Page')"><title></title></head>
 
-
-<head th:fragment="header(name)">
+<head>
     <meta charset="UTF-8">
-    <title th:text="${name}"></title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index html one</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&family=Rubik:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
 </head>
 
 <body class="myb">
 
-<div class="container">
-    <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Owner</th>
-                <th>Detail</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="organization,iter : ${organizations}">
-                <td th:text="${iter.count}"></td>
-                <td th:text="${organization.getName()}"></td>
-                <td th:text=" ${organization.getEmail()}"></td>
-                <td th:text="${organization.getOwner()}"></td>
-                <td>
-                    <a th:href="@{/organization/detail/{id}/(id=${organization.id})}">Details</a>
-                </td>
-                <td>
-                    <div th:switch="${organization.isBlocked()}">
-                        <p th:case="${true}"><a th:href="@{/organization/block/{id}/(id=${organization.id})}">🔐</a></p>
-                        <p th:case="${false}"><a th:href="@{/organization/unblock/{id}/(id=${organization.id})}">🔓</a>
-                        </p>
-                    </div>
 
-                    <a th:href="@{/organization/delete/{id}/(id=${organization.id})}">🗑</a>
-                    <a th:href="@{/organization/update/{id}/(id=${organization.id})}"> ✏ </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <a th:href="@{/organization/create}" class="btn btn-success">➕ Add</a>
-    </div>
-</div>
+<header>
+    <main>
+        <div class="menu-bar">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">
+            <img src="../assets/imges/logo.png"
+                 th:src="@{../assets/imges/logo.png}" alt="not found"/>
+        </div>
 
-<section th:include="fragment.html :: js-files"></section>
+    </main>
+
+    <aside>
+        <nav>
+            <div class="input">
+                <div>
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <label>
+                    <input type="text" placeholder="Search">
+                </label>
+            </div>
+
+            <div class="user-information">
+                <div class="icon">
+                    <img src="assets/imges/bell.png" alt="">
+                    <i class="far fa-envelope"></i>
+                </div>
+
+                <div class="user">
+                    <img src="./assets/imges/useer.png" alt="">
+                    <p>Azhar I.
+                        <i class="fas fa-angle-down"></i>
+                    </p>
+                </div>
+
+            </div>
+
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Owner</th>
+                        <th>Detail</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="organization,iter : ${organizations}">
+                        <td th:text="${iter.count}"></td>
+                        <td th:text="${organization.getName()}"></td>
+                        <td th:text=" ${organization.getEmail()}"></td>
+                        <td th:text="${organization.getOwner()}"></td>
+                        <td>
+                            <a th:href="@{/organization/detail/{id}/(id=${organization.id})}">Details</a>
+                        </td>
+                        <td>
+                            <div th:switch="${organization.isBlocked()}">
+                                <p th:case="${true}">
+                                </p>
+                                <p th:case="${false}">
+                                </p>
+                            </div>
+                            <a th:href="@{/organization/block/{id}/(id=${organization.id})}">🔐</a>
+                            <a th:href="@{/organization/unblock/{id}/(id=${organization.id})}">🔓</a>
+                            <a th:href="@{/organization/delete/{id}/(id=${organization.id})}">🗑</a>
+                            <!--                            <a th:href="@{/organization/update/{id}/(id=${organization.id})}"> ✏ </a>-->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <a th:href="@{/organization/create}" class="btn btn-success">➕ Add</a>
+            </div>
+        </div>
+    </aside>
+
+</header>
+
 </body>
 </html>
 

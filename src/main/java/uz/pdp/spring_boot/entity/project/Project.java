@@ -15,10 +15,10 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Lob
+
     private String name;
 
-    @Lob
+
     private String tzPath;
 
     @ManyToOne(fetch = FetchType.LAZY)

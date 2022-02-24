@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragment.html :: header('Task Delete Page')">
+</head>
+<body>
+<header>
+    <section th:include="fragment.html :: navbar"></section>
+</header>
+<main>
+
+    <h1>Delete Todo Page</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-8 mx-auto">
+                <ul>
+                    <li th:text="${task.name}"></li>
+                </ul>
+                <form method="post" th:action="@{/task/delete/{id}(id=${task.id})}">
+                    <button type="submit" class="btn btn-danger">Yes</button>
+                    <a th:href="@{/}" class="btn btn-warning">No</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<!--<footer>-->
+<!--    <section th:include="fragment.html :: js"></section>-->
+<!--</footer>-->
+</body>
+</html>

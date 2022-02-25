@@ -24,40 +24,14 @@
             <i class="fas fa-bars"></i>
         </div>
         <div class="logo">
-            <img src="../assets/imges/logo.png"
-                 th:src="@{../assets/imges/logo.png}" alt="not found"/>
+            <img src="../../static/imges/logo.png"
+                 th:src="@{../../static/imges/logo.png}" alt="not found"/>
         </div>
 
     </main>
 
     <aside>
-        <nav>
-            <div class="input">
-                <div>
-                    <i class="fas fa-search"></i>
-                </div>
-
-                <label>
-                    <input type="text" placeholder="Search">
-                </label>
-            </div>
-
-            <div class="user-information">
-                <div class="icon">
-                    <img src="assets/imges/bell.png" alt="">
-                    <i class="far fa-envelope"></i>
-                </div>
-
-                <div class="user">
-                    <img src="./assets/imges/useer.png" alt="">
-                    <p>Azhar I.
-                        <i class="fas fa-angle-down"></i>
-                    </p>
-                </div>
-
-            </div>
-
-        </nav>
+        <nav th:include="index.html::#index-nav"></nav>
 
         <h1>Detail Organization Page</h1>
         <div class="container">

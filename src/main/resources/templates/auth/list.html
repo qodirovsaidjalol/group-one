@@ -19,16 +19,7 @@
 
 
 <header>
-    <main>
-        <div class="menu-bar">
-            <i class="fas fa-bars"></i>
-        </div>
-        <div class="logo">
-            <img src="../assets/imges/logo.png"
-                 alt="not found"/>
-        </div>
-
-    </main>
+    <main th:include="index.html::#index-main-page"></main>
 
     <aside>
         <nav th:include="index.html::#index-nav"></nav>
@@ -48,6 +39,8 @@
                     <tbody>
                     <tr th:each="user,iter : ${users}">
                         <td th:text="${iter.count}"></td>
+
+                        <td th:utext=" ${user.getUsername()}"></td>
 
                         <td th:utext=" ${user.getEmail()}"></td>
                         <td>
@@ -81,31 +74,3 @@
 
 </body>
 </html>
-
-<!--<nav>-->
-<!--    <div class="input">-->
-<!--        <div>-->
-<!--            <i class="fas fa-search"></i>-->
-<!--        </div>-->
-
-<!--        <label>-->
-<!--            <input type="text" placeholder="Search">-->
-<!--        </label>-->
-<!--    </div>-->
-
-<!--    <div class="user-information">-->
-<!--        <div class="icon">-->
-<!--            <img src="assets/imges/bell.png" alt="">-->
-<!--            <i class="far fa-envelope"></i>-->
-<!--        </div>-->
-
-<!--        <div class="user">-->
-<!--            <img src="./assets/imges/useer.png" alt="">-->
-<!--            <p>Azhar I.-->
-<!--                <i class="fas fa-angle-down"></i>-->
-<!--            </p>-->
-<!--        </div>-->
-
-<!--    </div>-->
-
-<!--</nav>-->

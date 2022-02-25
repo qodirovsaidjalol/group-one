@@ -5,12 +5,12 @@
 <body>
 
 <main>
-
+    <nav th:include="index.html::#index-nav"></nav>
     <h1>Detail User Page</h1>
     <div class="container">
         <div class="row">
             <main>
-                <img src="../assets/imges/logo.png" alt="not found">
+                <img src="../../static/imges/logo.png" alt="not found">
             </main>
             <div class="col-4 mx-auto">
                 <ul>
@@ -22,6 +22,59 @@
         </div>
     </div>
 </main>
+
+<header>
+    <main th:include="index.html::#index-main-page"></main>
+
+    <aside>
+        <nav th:include="index.html::#index-nav"></nav>
+
+        <div class="container">
+            <div class="row">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Detail</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user,iter : ${users}">
+                        <td th:text="${iter.count}"></td>
+
+                        <td th:utext=" ${user.getEmail()}"></td>
+                        <td>
+                            <a th:href="@{/auth/detail/{id}/(id=${user.id})}">Details</a>
+
+                        </td>
+                        <td>
+
+                            <div th:switch="${user.isBlocked()}">
+                                <p th:case="${true}">
+                                </p>
+                                <p th:case="${false}">
+                                </p>
+                            </div>
+
+                            <a th:href="@{/auth/unblock/{id}/(id=${user.id})}">🔓</a>
+                            <a th:href="@{/auth/block/{id}/(id=${user.id})}">🔐</a>
+                            <a th:href="@{/auth/delete/{id}/(id=${user.id})}">🗑</a>
+                            <!--                    <a th:href="@{/auth/update/{id}/(id=${user.id})}"> ✏ </a>-->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <a th:href="@{/auth/create}" class="btn btn-success">➕ Add</a>
+            </div>
+        </div>
+
+    </aside>
+
+</header>
+
 <footer>
     <section th:include="fragment.html :: js-files"></section>
 </footer>

@@ -17,47 +17,13 @@
 
 <body class="myb">
 
-
 <header>
-    <main>
-        <div class="menu-bar">
-            <i class="fas fa-bars"></i>
-        </div>
-        <div class="logo">
-            <img src="../assets/imges/logo.png"
-                 th:src="@{../assets/imges/logo.png}" alt="not found"/>
-        </div>
 
-    </main>
+    <main th:include="index.html::#index-main-page"></main>
 
     <aside>
-        <nav>
-            <div class="input">
-                <div>
-                    <i class="fas fa-search"></i>
-                </div>
 
-                <label>
-                    <input type="text" placeholder="Search">
-                </label>
-            </div>
-
-            <div class="user-information">
-                <div class="icon">
-                    <img src="assets/imges/bell.png" alt="">
-                    <i class="far fa-envelope"></i>
-                </div>
-
-                <div class="user">
-                    <img src="./assets/imges/useer.png" alt="">
-                    <p>Azhar I.
-                        <i class="fas fa-angle-down"></i>
-                    </p>
-                </div>
-
-            </div>
-
-        </nav>
+        <nav th:include="index.html::#index-nav"></nav>
 
         <div class="container">
             <div class="row">
@@ -82,12 +48,7 @@
                             <a th:href="@{/organization/detail/{id}/(id=${organization.id})}">Details</a>
                         </td>
                         <td>
-                            <div th:switch="${organization.isBlocked()}">
-                                <p th:case="${true}">
-                                </p>
-                                <p th:case="${false}">
-                                </p>
-                            </div>
+
                             <a th:href="@{/organization/block/{id}/(id=${organization.id})}">🔐</a>
                             <a th:href="@{/organization/unblock/{id}/(id=${organization.id})}">🔓</a>
                             <a th:href="@{/organization/delete/{id}/(id=${organization.id})}">🗑</a>

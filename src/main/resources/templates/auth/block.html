@@ -18,16 +18,15 @@
 <div class="container">
     <h3>Block User</h3>
 
-    <form method="post" th:action="@{/auth/block/{id}(id=${user.id})}">
+    <div class="btn">
+        <a th:href="@{/auth/list/}">
+            <button type="submit">No</button>
+        </a>
 
-        <div class="btn">
-            <a th:href="@{/auth/list}">
-                <button type="submit">No</button>
-            </a>
+        <form method="post" th:href="@{/auth/block/{id}(id=${user.id})}">
             <button type="submit">Yes</button>
-        </div>
-
-    </form>
+        </form>
+    </div>
 </div>
 </body>
 </html>

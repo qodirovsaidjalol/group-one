@@ -18,16 +18,15 @@
 <div class="container">
     <h3>Unblock User</h3>
 
-    <form method="post" th:action="@{/auth/unblock/{id}(id=${user.id})}">
+    <div class="btn">
+        <a th:href="@{/auth/list/}">
+            <button type="submit">No</button>
+        </a>
 
-        <div class="btn">
-            <a th:href="@{/auth/list}">
-                <button type="submit">No</button>
-            </a>
+        <form method="post" th:href="@{/auth/unblock/{id}(id=${user.id})}">
             <button type="submit">Yes</button>
-        </div>
-
-    </form>
+        </form>
+    </div>
 </div>
 </body>
 </html>

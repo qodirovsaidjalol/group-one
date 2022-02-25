@@ -18,17 +18,14 @@
 <div class="container">
     <h3>Delete User</h3>
 
-
     <div class="btn">
-        <a th:href="@{/auth/list}">
+        <a th:href="@{/auth/list/}">
             <button type="submit">No</button>
         </a>
-        <form method="post" th:action="@{/auth/delete/{id}(id=${user.id})}">
-            <button type="submit">Yes
-            </button>
 
+        <form method="post" th:href="@{/auth/delete/{id}(id=${user.id})}">
+            <button type="submit">Yes</button>
         </form>
-
     </div>
 </div>
 </body>

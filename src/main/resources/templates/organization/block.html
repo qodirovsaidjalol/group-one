@@ -18,17 +18,15 @@
 <div class="container">
     <h3>Block organization</h3>
 
-    <form>
+    <div class="btn">
+        <a th:href="@{/organization/list/}">
+            <button type="submit">No</button>
+        </a>
 
-        <div class="btn">
-            <a th:href="@{/organization/list}">
-                <button type="submit">No</button>
-            </a>
-            <button method="post" th:action="@{/organization/block/{id}(id=${organization.id})}" type="submit">Yes
-            </button>
-        </div>
-
-    </form>
+        <form method="post" th:href="@{/organization/block/{id}(id=${organization.id})}">
+            <button type="submit">Yes</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>

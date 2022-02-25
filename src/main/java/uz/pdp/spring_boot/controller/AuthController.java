@@ -106,6 +106,12 @@ public class AuthController extends AbstractController<AuthUserService> {
         return "redirect:/auth/list";
     }
 
+    @RequestMapping("list/{id}")
+    public String listId(Model model/*, @PathVariable(name = "userId") Long userId*/) {
+        model.addAttribute("users", service.getAll(new GenericCriteria()));
+        return "auth/list";
+    }
+
     @RequestMapping("list")
     public String list(Model model/*, @PathVariable(name = "userId") Long userId*/) {
         model.addAttribute("users", service.getAll(new GenericCriteria()));

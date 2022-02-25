@@ -8,6 +8,7 @@ import uz.pdp.spring_boot.dto.colim.ColumDto;
 import uz.pdp.spring_boot.dto.colim.ColumUpdateDto;
 import uz.pdp.spring_boot.dto.colim.CreateColumDto;
 import uz.pdp.spring_boot.entity.column.Colum;
+import uz.pdp.spring_boot.entity.project.Project;
 import uz.pdp.spring_boot.mapper.ColumMapper;
 import uz.pdp.spring_boot.reposiroty.ColumRepository;
 import uz.pdp.spring_boot.services.AbstractService;
@@ -55,5 +56,10 @@ public class ColumServiceImpl extends AbstractService<ColumRepository, ColumMapp
     @Override
     public Long totalCount(GenericCriteria criteria) {
         return null;
+    }
+
+    @Override
+    public Object getAllByProject(Project byId) {
+      return  repository.getAllByProjectEquals(byId);
     }
 }

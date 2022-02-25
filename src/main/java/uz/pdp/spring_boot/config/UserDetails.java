@@ -1,5 +1,7 @@
 package uz.pdp.spring_boot.config;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import uz.pdp.spring_boot.entity.permission.Permission;
@@ -8,11 +10,13 @@ import uz.pdp.spring_boot.entity.rele.Role;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
+@Getter
+@Setter
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
 
     private final AuthUser user;
     private final Long id;
+    private Boolean isSuperAdmin;
 
     public UserDetails(AuthUser user) {
         this.user = user;
@@ -30,7 +34,6 @@ public class UserDetails implements org.springframework.security.core.userdetail
         }
 
         authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getCode()));
-
         List<Permission> permissions = role.getPermissions();
 
         if (Objects.isNull(permissions)) {
@@ -44,6 +47,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
         );
         return authorities;
     }
+
 
     @Override
     public String getPassword() {

@@ -48,7 +48,7 @@
                     <tbody>
                     <tr th:each="user,iter : ${users}">
                         <td th:text="${iter.count}"></td>
-                        <td th:utext="${user.getUsername()}"></td>
+
                         <td th:utext=" ${user.getEmail()}"></td>
                         <td>
                             <a th:href="@{/auth/detail/{id}/(id=${user.id})}">Details</a>

@@ -16,15 +16,13 @@
 </head>
 
 <body class="myb">
-
-
 <header>
     <main>
         <div class="menu-bar">
             <i class="fas fa-bars"></i>
         </div>
         <div class="logo">
-            <img src="./assets/imges/logo.png" alt="">
+            <img th:href="user.images" alt="">
         </div>
 
         <div class="link">
@@ -32,7 +30,6 @@
             <a th:href="@{/auth/list}">Users</a>
         </div>
     </main>
-
     <aside>
         <nav>
             <div class="input">

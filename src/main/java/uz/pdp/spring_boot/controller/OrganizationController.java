@@ -1,6 +1,7 @@
 package uz.pdp.spring_boot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import uz.pdp.spring_boot.services.organization.OrganizationService;
 
 @Controller
 @RequestMapping("/organization/*")
+@PreAuthorize(value = "hasRole('SUPER')")
 public class OrganizationController extends AbstractController<OrganizationService> {
 
     @Autowired
@@ -18,6 +20,7 @@ public class OrganizationController extends AbstractController<OrganizationServi
     }
 
     @RequestMapping(value = "create", method = RequestMethod.GET)
+
     public String createPage() {
         return "organization/create";
     }
@@ -40,7 +43,6 @@ public class OrganizationController extends AbstractController<OrganizationServi
         service.delete(id);
         return "redirect:/organization/list";
     }
-
 
     @RequestMapping(value = "update/{id}", method = RequestMethod.GET)
     public String updatePage(@PathVariable Long id) {

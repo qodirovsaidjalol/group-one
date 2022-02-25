@@ -2,13 +2,14 @@ package uz.pdp.spring_boot.reposiroty;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Component;
 import uz.pdp.spring_boot.entity.organization.Organization;
 import uz.pdp.spring_boot.entity.rele.Role;
 import uz.pdp.spring_boot.entity.user.AuthUser;
 
 import java.util.List;
 import java.util.Optional;
-
+@Component
 public interface AuthUserRepository extends JpaRepository<AuthUser, Long>, AbstractRepository {
 
     AuthUser findAuthUserById(Long id);

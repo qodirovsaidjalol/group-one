@@ -14,6 +14,7 @@ import uz.pdp.spring_boot.entity.user.AuthUser;
 import uz.pdp.spring_boot.mapper.AuthUserMapper;
 import uz.pdp.spring_boot.reposiroty.AuthUserRepository;
 import uz.pdp.spring_boot.reposiroty.OrganizationRepository;
+import uz.pdp.spring_boot.reposiroty.RoleRepository;
 import uz.pdp.spring_boot.services.AbstractService;
 import uz.pdp.spring_boot.services.organization.file.FileStorageService;
 import uz.pdp.spring_boot.utils.BaseUtils;
@@ -26,13 +27,15 @@ public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, Aut
     private final FileStorageService fileStorageService;
     private final PasswordEncoderConfigurations encoder;
     private final OrganizationRepository organizationService;
+    private final RoleRepository repositoryRole;
 
     @Autowired
-    protected AuthUserServiceImpl(AuthUserRepository repository, @Qualifier("authUserMapperImpl") AuthUserMapper mapper, BaseUtils baseUtils, FileStorageService fileStorageService, PasswordEncoderConfigurations encoder, OrganizationRepository organizationService) {
+    protected AuthUserServiceImpl(AuthUserRepository repository, @Qualifier("authUserMapperImpl") AuthUserMapper mapper, BaseUtils baseUtils, FileStorageService fileStorageService, PasswordEncoderConfigurations encoder, OrganizationRepository organizationService, RoleRepository repository1) {
         super(repository, mapper, baseUtils);
         this.fileStorageService = fileStorageService;
         this.encoder = encoder;
         this.organizationService = organizationService;
+        this.repositoryRole = repository1;
     }
 
     @Override
@@ -43,7 +46,7 @@ public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, Aut
         user.setPassword(encoder.passwordEncoder().encode(user.getPassword()));
         user.setImage(logoPath);
         user.setOrganization(repository.findOrg(createDto.getOrganizationId()));
-        user.setRole(repository.findRoleByName(createDto.getRole_name()));
+        user.setRole(repositoryRole.getByCodeEquals(createDto.getRole_name()));
         return repository.save(user).getId();
     }
 

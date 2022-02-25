@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import uz.pdp.spring_boot.entity.Auditable;
 import uz.pdp.spring_boot.entity.BaseEntity;
-import uz.pdp.spring_boot.entity.column.Columns;
+import uz.pdp.spring_boot.entity.column.Colum;
 import uz.pdp.spring_boot.entity.project.Project;
 
 import javax.persistence.*;
@@ -21,7 +21,7 @@ public class Task extends Auditable implements BaseEntity {
     private Project project;
 
     @ManyToOne
-    private Columns column;
+    private Colum column;
 
     private String name;
 

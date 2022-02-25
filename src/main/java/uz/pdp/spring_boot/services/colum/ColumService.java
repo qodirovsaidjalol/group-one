@@ -8,6 +8,7 @@ import uz.pdp.spring_boot.dto.colim.ColumDto;
 import uz.pdp.spring_boot.dto.colim.ColumUpdateDto;
 import uz.pdp.spring_boot.dto.colim.CreateColumDto;
 import uz.pdp.spring_boot.entity.column.Colum;
+import uz.pdp.spring_boot.entity.project.Project;
 import uz.pdp.spring_boot.services.GenericCrudService;
 
 public interface ColumService extends GenericCrudService<Colum,
@@ -16,4 +17,5 @@ public interface ColumService extends GenericCrudService<Colum,
         ColumUpdateDto,
         GenericCriteria, Long> {
 
+    Object getAllByProject(Project byId);
 }

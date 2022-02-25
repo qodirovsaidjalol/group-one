@@ -34,6 +34,6 @@ public class AuthUser extends Auditable {
     @ManyToOne
     private Organization organization;
 
-    @OneToOne
+    @ManyToOne
     private Role role;
 }

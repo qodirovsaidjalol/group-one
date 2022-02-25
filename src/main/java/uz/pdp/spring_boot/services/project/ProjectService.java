@@ -19,9 +19,9 @@ public interface ProjectService extends GenericCrudService<Project,
         ProjectUpdateDto,
         GenericCriteria,
         Long> {
-    public Organization getOrg(Long id);
+    Organization getOrg(Long id);
 
     List<Colum> getColum(Long id);
 
-    List<ProjectDto> getAllByOrg(Long id);
+    List<ProjectDto> getAllByOrg(Organization id);
 }

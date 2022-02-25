@@ -1,15 +1,15 @@
 package uz.pdp.spring_boot.services.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import uz.pdp.spring_boot.criteria.GenericCriteria;
-import uz.pdp.spring_boot.dto.organization.OrganizationDto;
 import uz.pdp.spring_boot.dto.task.TaskCreateDto;
 import uz.pdp.spring_boot.dto.task.TaskDto;
 import uz.pdp.spring_boot.dto.task.TaskUpdateDto;
 import uz.pdp.spring_boot.entity.task.Task;
 import uz.pdp.spring_boot.mapper.TaskMapper;
-import uz.pdp.spring_boot.reposiroty.ColumnRepository;
+import uz.pdp.spring_boot.reposiroty.ColumRepository;
 import uz.pdp.spring_boot.reposiroty.ProjectRepository;
 import uz.pdp.spring_boot.reposiroty.TaskRepository;
 import uz.pdp.spring_boot.services.AbstractService;
@@ -22,10 +22,10 @@ import java.util.Optional;
 public class TaskServiceImpl extends AbstractService<TaskRepository, TaskMapper> implements TaskService {
 
     private final ProjectRepository projectRepository;
-    private final ColumnRepository columnRepository;
+    private final ColumRepository columnRepository;
 
     @Autowired
-    protected TaskServiceImpl(TaskRepository repository, TaskMapper mapper, BaseUtils baseUtils, ProjectRepository projectRepository, ColumnRepository columnRepository) {
+    protected TaskServiceImpl(TaskRepository repository, @Qualifier("taskMapperImpl") TaskMapper mapper, BaseUtils baseUtils, ProjectRepository projectRepository, ColumRepository columnRepository) {
         super(repository, mapper, baseUtils);
         this.projectRepository = projectRepository;
         this.columnRepository = columnRepository;
@@ -34,7 +34,7 @@ public class TaskServiceImpl extends AbstractService<TaskRepository, TaskMapper>
     @Override
     public Long create(TaskCreateDto createDto) {
         Task task = mapper.fromCreateDto(createDto);
-        task.setProject(projectRepository.findProjectById(createDto.getProjectId()));
+      // task.setProject(projectRepository.findProjectById(createDto.getProjectId()));
         task.setColumn(columnRepository.findColumnById(createDto.getColumnId()));
         repository.save(task);
         return task.getId();

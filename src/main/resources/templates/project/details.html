@@ -5,27 +5,8 @@
 
 <div class="container">
     <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Owner</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="colum,iter : ${columns}">
-                <td th:text="${iter.count}"></td>
-                <td th:utext="${colum.getName()}"></td>
-                <td>✅
-                    <a th:href="@{/colum/delete/{id}/(id=${colum.id})}">🗑</a>
-                    <a th:href="@{/colum/create/{id}/(id=${colum.id})}"> ✏ </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <a th:href="@{/colum/create/{id}/(id=${projectId})}" class="btn btn-success">Colum Add</a>
+        <a th:href="@{/colum/list/{id}/(id=${projectId})}" class="btn btn-success">Colum</a>
+        <a th:href="@{/auth/list/{id}/(id=${projectId})}" class="btn btn-success">User</a>
     </div>
 </div>
 <section th:include="fragment.html :: js-files"></section>

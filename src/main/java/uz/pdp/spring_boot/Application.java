@@ -8,9 +8,8 @@ import uz.pdp.spring_boot.config.PasswordEncoderConfigurations;
 public class Application {
 
     public static void main(String[] args) {
-       // PasswordEncoderConfigurations passwordEncoderConfigurations=new PasswordEncoderConfigurations();
+        PasswordEncoderConfigurations passwordEncoderConfigurations=new PasswordEncoderConfigurations();
          SpringApplication.run(Application.class, args);
     }
-
 }
 

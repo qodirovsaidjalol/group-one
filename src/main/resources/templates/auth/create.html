@@ -23,7 +23,7 @@
     </div>
 
     <label>
-        <input type="hidden" th:value="${user.getOrganizationId()}" name="organizationId">
+        <input type="hidden" th:value="${user.organizationId}" name="organizationId">
     </label>
 
     <div class="form-group">
@@ -50,7 +50,7 @@
         <select class="form-control " id="role" required th:field="*{role}">
             <option hidden value="">Select a role</option>
             <option
-                    th:each="role : ${T(uz.qodirov.entity.auth.Role).values()}"
+                    th:each="role : ${T(uz.pdp.spring_boot.entity.user.Role).values()}"
                     th:text="${role}"
                     th:value="${role}">
             </option>
@@ -62,7 +62,7 @@
         <select class="form-control " id="lang" required th:field="*{language}">
             <option hidden value="">Select a language</option>
             <option
-                    th:each="lan : ${T(uz.qodirov.entity.auth.Language).values()}"
+                    th:each="lan : ${T(uz.pdp.spring_boot.entity.user.Language).values()}"
                     th:text="${lan}"
                     th:value="${lan}">
             </option>

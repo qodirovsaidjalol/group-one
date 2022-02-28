@@ -10,13 +10,8 @@ import uz.pdp.spring_boot.entity.user.AuthUser;
 
 import java.util.List;
 
-@Component
 @Mapper(componentModel = "spring")
-public interface AuthUserMapper extends BaseMapper<
-        AuthUser,
-        AuthUserDto,
-        AuthUserCreateDto,
-        AuthUserUpdateDto> {
+public interface AuthUserMapper extends BaseMapper<AuthUser, AuthUserDto, AuthUserCreateDto, AuthUserUpdateDto> {
 
     @Override
     List<AuthUserDto> toDto(List<AuthUser> e);

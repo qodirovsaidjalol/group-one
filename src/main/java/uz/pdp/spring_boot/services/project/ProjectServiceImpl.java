@@ -25,7 +25,7 @@ public class ProjectServiceImpl extends AbstractService<ProjectRepository, Proje
    private final ColumRepository columRepository;
     @Autowired
     protected ProjectServiceImpl(ProjectRepository repository, @Qualifier("projectMapperImpl") ProjectMapper mapper, BaseUtils baseUtils, ColumRepository columRepository) {
-        super(repository, mapper, baseUtils);
+        super(repository, mapper);
         this.columRepository = columRepository;
     }
 

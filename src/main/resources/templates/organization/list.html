@@ -9,6 +9,7 @@
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>Thymeleaf Form handling Demo</title>
 
+
     <link rel="stylesheet" th:href="@{/css/index.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,11 +63,8 @@
         </div>
 
         <div class="link">
-            <a href="#"> -- Supper Admin
-            </a>
-            <a th:href="@{/organization/list}">Organizations</a>
-            <a th:href="@{/auth/listAll}">All Users</a>
-            <a th:href="@{/organization/create}">Create Organization</a>
+            <a href="#"> -- Supper Admin </a>
+            <br>
             <a href="#">Logout</a>
 
         </div>
@@ -129,9 +127,9 @@
 
                 <td style="text-align: center" class="align-middle text-center">
                     <a class="btn btn-secondary" th:href="'/organization/update/' + ${org.id}">✏️</a>
-                    <a class="btn btn-secondary" th:if="${org.isBlocked()}"
+                    <a class="btn btn-secondary" th:if="${org.blocked}"
                        th:href="'/organization/block/' + ${org.id}">🔓</a>
-                    <a class="btn btn-secondary" th:if="${!org.isBlocked()}"
+                    <a class="btn btn-secondary" th:if="${!org.blocked}"
                        th:href="'/organization/block/' + ${org.id}">🔐</a>
                     <a class="btn btn-secondary" th:href="'/organization/delete/' + ${org.id}">🗑</a>
                 </td>
@@ -142,6 +140,8 @@
                 </td>
             </tr>
         </table>
+        <br>
+        <h3><a th:href="@{/organization/create}">➕ Create Organization</a></h3>
     </aside>
 
 </header>

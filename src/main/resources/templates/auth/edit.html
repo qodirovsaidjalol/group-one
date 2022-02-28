@@ -52,7 +52,7 @@
         <select class="form-control " id="lang" required th:field="*{language}">
             <option hidden value="">Select a language</option>
             <option
-                    th:each="lan : ${T(uz.qodirov.entity.auth.Language).values()}"
+                    th:each="lan : ${T(uz.pdp.spring_boot.entity.user.Language).values()}"
                     th:text="${lan}"
                     th:value="${lan}">
             </option>

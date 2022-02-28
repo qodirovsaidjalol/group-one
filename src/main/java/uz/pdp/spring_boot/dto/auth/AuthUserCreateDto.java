@@ -5,6 +5,8 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import uz.pdp.spring_boot.dto.Dto;
+import uz.pdp.spring_boot.entity.user.Language;
+import uz.pdp.spring_boot.entity.user.Role;
 
 @Getter
 @Setter
@@ -15,5 +17,6 @@ public class AuthUserCreateDto implements Dto {
     private MultipartFile image;
     private String email;
     private Long organizationId;
-    private String role_name;
+    private Role role;
+    private Language language;
 }

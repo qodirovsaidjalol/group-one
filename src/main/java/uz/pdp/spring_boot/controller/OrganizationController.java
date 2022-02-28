@@ -6,17 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uz.pdp.spring_boot.criteria.GenericCriteria;
-import uz.pdp.spring_boot.dto.organization.OrganizationCreateDto;
 import uz.pdp.spring_boot.dto.organization.OrganizationUpdateDto;
+import uz.pdp.spring_boot.dto.organization.OrganizationCreateDto;
 import uz.pdp.spring_boot.services.auth.AuthUserService;
-import uz.pdp.spring_boot.services.organization.OrganizationService;
 import uz.pdp.spring_boot.services.organization.OrganizationServiceImpl;
 
 @Controller
 @RequestMapping("/organization/*")
-//@PreAuthorize(value = "hasRole('SUPER')")
-public class OrganizationController extends AbstractController<OrganizationService> {
-
+public class OrganizationController extends AbstractController<OrganizationServiceImpl> {
 
     private final AuthUserService authUserService;
 
@@ -26,37 +23,37 @@ public class OrganizationController extends AbstractController<OrganizationServi
         this.authUserService = authUserService;
     }
 
-    @RequestMapping("/create")
+    @RequestMapping("create")
     public String createPage(Model model) {
         model.addAttribute("organization", new OrganizationCreateDto());
         return "organization/create";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @RequestMapping(value = "create", method = RequestMethod.POST)
     public String create(@ModelAttribute("dto") OrganizationCreateDto dto) {
         service.create(dto);
         return "redirect:/organization/list";
     }
 
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "update/{id}", method = RequestMethod.GET)
     public String updatePage(Model model, @PathVariable("id") Long id) {
         model.addAttribute("organization", service.get(id));
         return "organization/edit";
     }
 
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "update/{id}", method = RequestMethod.POST)
     public String update(@PathVariable("id") Long id, RedirectAttributes redirectAttributes, @ModelAttribute OrganizationUpdateDto dto, Model model) {
         service.update(dto);
         return "redirect:/organization/list";
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public String deletePage(Model model, @PathVariable("id") Long id) {
         model.addAttribute("organization", service.get(id));
         return "organization/delete";
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes, Model model) {
         service.delete(id);
         return "redirect:/organization/list";

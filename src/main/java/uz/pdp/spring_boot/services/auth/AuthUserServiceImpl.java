@@ -1,20 +1,18 @@
 package uz.pdp.spring_boot.services.auth;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import uz.pdp.spring_boot.criteria.GenericCriteria;
-import uz.pdp.spring_boot.dto.auth.AuthUserCreateDto;
 import uz.pdp.spring_boot.dto.auth.AuthUserDto;
 import uz.pdp.spring_boot.dto.auth.AuthUserUpdateDto;
-import uz.pdp.spring_boot.entity.organization.Organization;
+import uz.pdp.spring_boot.dto.auth.AuthUserCreateDto;
 import uz.pdp.spring_boot.entity.user.AuthUser;
+import uz.pdp.spring_boot.entity.organization.Organization;
 import uz.pdp.spring_boot.mapper.AuthUserMapper;
 import uz.pdp.spring_boot.reposiroty.AuthUserRepository;
 import uz.pdp.spring_boot.reposiroty.OrganizationRepository;
 import uz.pdp.spring_boot.services.AbstractService;
 import uz.pdp.spring_boot.services.organization.file.FileStorageService;
-import uz.pdp.spring_boot.utils.BaseUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +24,12 @@ public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, Aut
     private final FileStorageService fileStorageService;
     private final OrganizationRepository organizationRepository;
 
-    @Autowired
-    protected AuthUserServiceImpl(AuthUserRepository repository, AuthUserMapper mapper, BaseUtils baseUtils, FileStorageService fileStorageService, OrganizationRepository organizationRepository) {
-        super(repository, mapper, baseUtils);
+    protected AuthUserServiceImpl(AuthUserRepository repository, AuthUserMapper mapper, FileStorageService fileStorageService, OrganizationRepository organizationRepository) {
+        super(repository, mapper);
         this.fileStorageService = fileStorageService;
         this.organizationRepository = organizationRepository;
     }
+
 
     @Override
     public Long create(AuthUserCreateDto authUserCreateDto) {
@@ -42,11 +40,16 @@ public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, Aut
             user.setOrganization(organizationRepository.getById(1L));  // TODO: 2/27/2022 Sessionni organizatsiya id si beriladi
         else {
             user.setOrganization(organizationRepository.getById(authUserCreateDto.getOrganizationId()));
-            Organization organization = organizationRepository.getById(authUserCreateDto.getOrganizationId());
-            organization.setOwner(user.getId());
         }
         user.setImage(logoPath);
-        return repository.save(user).getId();
+        return addOwner(repository.save(user));
+    }
+
+    private Long addOwner(AuthUser save) {
+        Organization organization = organizationRepository.findOrganizationById(save.getOrganization().getId());
+        organization.setOwner(save.getId());
+        organizationRepository.save(organization);
+        return save.getId();
     }
 
     @Override
@@ -62,7 +65,6 @@ public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, Aut
 
     public void deleteAll(Long id) {
         List<AuthUserDto> users = getAllFromOrganization(id);
-
         for (AuthUserDto user : users) {
             delete(user.getId());
         }

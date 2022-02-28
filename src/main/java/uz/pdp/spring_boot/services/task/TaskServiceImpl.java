@@ -26,7 +26,7 @@ public class TaskServiceImpl extends AbstractService<TaskRepository, TaskMapper>
 
     @Autowired
     protected TaskServiceImpl(TaskRepository repository, @Qualifier("taskMapperImpl") TaskMapper mapper, BaseUtils baseUtils, ProjectRepository projectRepository, ColumRepository columnRepository) {
-        super(repository, mapper, baseUtils);
+        super(repository, mapper);
         this.projectRepository = projectRepository;
         this.columnRepository = columnRepository;
     }

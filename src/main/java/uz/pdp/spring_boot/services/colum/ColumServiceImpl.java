@@ -20,7 +20,7 @@ import java.util.List;
 public class ColumServiceImpl extends AbstractService<ColumRepository, ColumMapper> implements ColumService {
     @Autowired
     protected ColumServiceImpl(ColumRepository repository, @Qualifier("columMapperImpl") ColumMapper mapper, BaseUtils baseUtils) {
-        super(repository, mapper, baseUtils);
+        super(repository, mapper);
     }
 
     @Override

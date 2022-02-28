@@ -12,6 +12,7 @@ import java.util.Optional;
 @Component
 public interface AuthUserRepository extends JpaRepository<AuthUser, Long>, AbstractRepository {
 
+    @Query(value = "from AuthUser a where a.id=:id")
     AuthUser findAuthUserById(Long id);
 
     @Query(value = "from Organization o where o.id=:id")

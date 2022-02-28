@@ -20,4 +20,8 @@ public interface TaskRepository extends JpaRepository<Task, Long>, AbstractRepos
     @Query(value = "from Task t where t.column= :colum")
     List<Task> getAllByColumnId(@Param("colum") Colum colum);
 
+    Task findTaskById(Long id);
+
+    @Query(value = "from Task t where t.id=:id")
+    Task getTask(Long id);
 }

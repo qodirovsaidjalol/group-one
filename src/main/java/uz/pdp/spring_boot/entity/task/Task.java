@@ -2,6 +2,7 @@ package uz.pdp.spring_boot.entity.task;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import uz.pdp.spring_boot.entity.Auditable;
 import uz.pdp.spring_boot.entity.BaseEntity;
 import uz.pdp.spring_boot.entity.column.Colum;
@@ -15,6 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
+@ToString
 public class Task extends Auditable implements BaseEntity {
 
     @ManyToOne
@@ -29,9 +31,7 @@ public class Task extends Auditable implements BaseEntity {
 
     private Long level;
 
-
     private boolean completed;
-
 
     private String deadline;
 }

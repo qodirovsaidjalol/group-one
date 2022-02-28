@@ -2,6 +2,7 @@ package uz.pdp.spring_boot.entity.user;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import uz.pdp.spring_boot.entity.Auditable;
 import uz.pdp.spring_boot.entity.organization.Organization;
 import uz.pdp.spring_boot.entity.rele.Role;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@ToString
 public class AuthUser extends Auditable {
 
     @Column(nullable = false, unique = true)

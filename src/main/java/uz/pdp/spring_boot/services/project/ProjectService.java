@@ -8,6 +8,7 @@ import uz.pdp.spring_boot.dto.proect.ProjectUpdateDto;
 import uz.pdp.spring_boot.entity.column.Colum;
 import uz.pdp.spring_boot.entity.organization.Organization;
 import uz.pdp.spring_boot.entity.project.Project;
+import uz.pdp.spring_boot.entity.user.AuthUser;
 import uz.pdp.spring_boot.services.GenericCrudService;
 
 import java.util.List;
@@ -24,4 +25,6 @@ public interface ProjectService extends GenericCrudService<Project,
     List<Colum> getColum(Long id);
 
     List<ProjectDto> getAllByOrg(Organization id);
+
+    List<AuthUser> getMembers(Long id);
 }

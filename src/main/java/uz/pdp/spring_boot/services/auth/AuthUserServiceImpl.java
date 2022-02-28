@@ -85,6 +85,7 @@ public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, Aut
         return mapper.toDto(repository.findAuthUserById(id));
     }
 
+    @Override
     public AuthUser getUser(Long id) {
         return repository.findAuthUserById(id);
     }
@@ -100,4 +101,6 @@ public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, Aut
         user.setBlocked(a);
         repository.save(user);
     }
+
+
 }

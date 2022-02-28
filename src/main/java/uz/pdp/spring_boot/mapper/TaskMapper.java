@@ -2,12 +2,10 @@ package uz.pdp.spring_boot.mapper;
 
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
-import uz.pdp.spring_boot.dto.auth.AuthUserCreateDto;
-import uz.pdp.spring_boot.dto.auth.AuthUserDto;
-import uz.pdp.spring_boot.dto.auth.AuthUserUpdateDto;
 import uz.pdp.spring_boot.dto.task.TaskCreateDto;
 import uz.pdp.spring_boot.dto.task.TaskDto;
 import uz.pdp.spring_boot.dto.task.TaskUpdateDto;
+import uz.pdp.spring_boot.entity.project.Project;
 import uz.pdp.spring_boot.entity.task.Task;
 
 import java.util.List;
@@ -22,6 +20,9 @@ public interface TaskMapper extends BaseMapper<
         TaskUpdateDto>{
     @Override
     List<TaskDto> toDto(List<Task> e);
+
+    @Override
+    TaskDto toDto(Task task);
 
     @Override
     List<Task> fromDto(List<TaskDto> e);

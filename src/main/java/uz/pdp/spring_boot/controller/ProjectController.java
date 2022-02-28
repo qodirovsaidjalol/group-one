@@ -20,7 +20,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("project/*")
+@RequestMapping("/project/*")
 public class ProjectController extends AbstractController<ProjectService> {
     @Autowired
     public ProjectController(ProjectService service) {
@@ -57,7 +57,6 @@ public class ProjectController extends AbstractController<ProjectService> {
 
     @RequestMapping("/detail/{id}/")
     public String addMembers(Model model, @PathVariable Long id) {
-
         model.addAttribute("columns",service.getColum(id));
         model.addAttribute("projectId",id);
         return "project/details";

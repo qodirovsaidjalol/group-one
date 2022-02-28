@@ -9,18 +9,20 @@ import org.springframework.data.repository.query.Param;
 import uz.pdp.spring_boot.entity.column.Colum;
 import uz.pdp.spring_boot.entity.organization.Organization;
 import uz.pdp.spring_boot.entity.project.Project;
+import uz.pdp.spring_boot.entity.project.ProjectMember;
 
 import java.util.List;
 
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long>, AbstractRepository {
-//    @Query(value = "from Project  p where p.id=:projectId")
-//    Project findProjectById(Long projectId);
+    @Query(value = "from Project  p where p.id=:projectId")
+    Project findProjectById(Long projectId);
 
     @Query(value = "from Organization o where o.id=:id")
     Organization getOrg(Long id);
 
     List<Project> getAllByOrganizationEquals(Organization organization);
+
 
 
 //    @Query(value = "from Colum o where o.project=:id and  o.active")

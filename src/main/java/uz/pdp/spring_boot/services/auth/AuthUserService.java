@@ -14,5 +14,7 @@ public interface AuthUserService extends GenericCrudService<AuthUser, AuthUserDt
     void block(Long id, boolean b);
 
     Long createAdmin(AuthUserCreateDto dto);
+
+    AuthUser getUser(Long id);
 }
 

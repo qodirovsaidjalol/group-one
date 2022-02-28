@@ -10,12 +10,17 @@ import uz.pdp.spring_boot.dto.proect.ProjectUpdateDto;
 import uz.pdp.spring_boot.entity.column.Colum;
 import uz.pdp.spring_boot.entity.organization.Organization;
 import uz.pdp.spring_boot.entity.project.Project;
+import uz.pdp.spring_boot.entity.project.ProjectMember;
+import uz.pdp.spring_boot.entity.user.AuthUser;
 import uz.pdp.spring_boot.mapper.ProjectMapper;
 import uz.pdp.spring_boot.reposiroty.ColumRepository;
+import uz.pdp.spring_boot.reposiroty.ProjectMemberRepository;
 import uz.pdp.spring_boot.reposiroty.ProjectRepository;
 import uz.pdp.spring_boot.services.AbstractService;
+import uz.pdp.spring_boot.services.auth.AuthUserService;
 import uz.pdp.spring_boot.utils.BaseUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,10 +28,15 @@ import java.util.Optional;
 public class ProjectServiceImpl extends AbstractService<ProjectRepository, ProjectMapper> implements ProjectService {
 
    private final ColumRepository columRepository;
+   private final ProjectMemberRepository projectMemberRepository;
+   private final AuthUserService authUserService;
     @Autowired
-    protected ProjectServiceImpl(ProjectRepository repository, @Qualifier("projectMapperImpl") ProjectMapper mapper, BaseUtils baseUtils, ColumRepository columRepository) {
+    protected ProjectServiceImpl(ProjectRepository repository, @Qualifier("projectMapperImpl") ProjectMapper mapper, BaseUtils baseUtils, ColumRepository columRepository, ProjectMemberRepository projectMemberRepository, AuthUserService authUserService) {
         super(repository, mapper, baseUtils);
         this.columRepository = columRepository;
+
+        this.projectMemberRepository = projectMemberRepository;
+        this.authUserService = authUserService;
     }
 
     @Override
@@ -50,6 +60,16 @@ public class ProjectServiceImpl extends AbstractService<ProjectRepository, Proje
     @Override
     public List<ProjectDto> getAllByOrg(Organization id) {
        return mapper.toDto(repository.getAllByOrganizationEquals(id));
+    }
+
+    @Override
+    public List<AuthUser> getMembers(Long id) {
+        List<Long> projectMembers = projectMemberRepository.findAllByProjectId(id);
+        List<AuthUser> authUsers=new ArrayList<>();
+        for (Long projectMember : projectMembers) {
+            authUsers.add(authUserService.getUser(projectMember));
+        }
+        return authUsers;
     }
 
     @Override

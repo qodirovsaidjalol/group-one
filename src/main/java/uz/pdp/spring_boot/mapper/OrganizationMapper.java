@@ -7,6 +7,7 @@ import uz.pdp.spring_boot.dto.organization.OrganizationCreateDto;
 import uz.pdp.spring_boot.dto.organization.OrganizationDto;
 import uz.pdp.spring_boot.dto.organization.OrganizationUpdateDto;
 import uz.pdp.spring_boot.entity.organization.Organization;
+import uz.pdp.spring_boot.entity.project.Project;
 
 import java.util.List;
 
@@ -29,5 +30,5 @@ public interface OrganizationMapper extends BaseMapper<
     @Override
     List<Organization> fromDto(List<OrganizationDto> e);
 
-    OrganizationDto toDto(Organization org);
+
 }

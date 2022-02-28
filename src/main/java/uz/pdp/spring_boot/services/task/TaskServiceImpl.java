@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import uz.pdp.spring_boot.criteria.GenericCriteria;
+import uz.pdp.spring_boot.dto.proect.ProjectDto;
 import uz.pdp.spring_boot.dto.task.TaskCreateDto;
 import uz.pdp.spring_boot.dto.task.TaskDto;
 import uz.pdp.spring_boot.dto.task.TaskUpdateDto;
+import uz.pdp.spring_boot.entity.project.Project;
 import uz.pdp.spring_boot.entity.task.Task;
 import uz.pdp.spring_boot.mapper.TaskMapper;
 import uz.pdp.spring_boot.reposiroty.ColumRepository;
@@ -34,7 +36,7 @@ public class TaskServiceImpl extends AbstractService<TaskRepository, TaskMapper>
     @Override
     public Long create(TaskCreateDto createDto) {
         Task task = mapper.fromCreateDto(createDto);
-      // task.setProject(projectRepository.findProjectById(createDto.getProjectId()));
+        task.setProject(projectRepository.findProjectById(createDto.getProjectId()));
         task.setColumn(columnRepository.findColumnById(createDto.getColumnId()));
         repository.save(task);
         return task.getId();
@@ -60,8 +62,7 @@ public class TaskServiceImpl extends AbstractService<TaskRepository, TaskMapper>
 
     @Override
     public TaskDto get(Long id) {
-        Optional<Task> task = repository.findById(id);
-        return task.stream().map(TaskDto::new).toList().get(0);
+        return mapper.toDto(repository.findTaskById(id));
     }
 
     @Override
@@ -72,5 +73,10 @@ public class TaskServiceImpl extends AbstractService<TaskRepository, TaskMapper>
     @Override
     public List<TaskDto> getAllByColumn(Long id) {
         return mapper.toDto(repository.getAllByColumnId(columnRepository.findColumnById(id)));
+    }
+
+    @Override
+    public Task getTask(Long id) {
+        return repository.getTask(id);
     }
 }

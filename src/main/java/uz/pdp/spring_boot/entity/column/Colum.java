@@ -7,6 +7,7 @@ import uz.pdp.spring_boot.entity.project.Project;
 
 import javax.persistence.*;
 
+
 @Getter
 @Setter
 @Entity
@@ -15,10 +16,11 @@ public class Colum implements BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-   @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String name;
+
     @Column(unique = true)
-    private Long order_column;
+    private Long order_colum;
 
     private boolean active=true;
     @ManyToOne

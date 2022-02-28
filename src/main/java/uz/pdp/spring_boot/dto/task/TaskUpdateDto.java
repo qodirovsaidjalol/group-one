@@ -15,10 +15,10 @@ public class TaskUpdateDto extends GenericDto{
     private String deadline;
 
     @Builder(builderMethodName = "childBuilder")
-    public TaskUpdateDto(Long id, String name, Long columnId, String description,Long level,String deadline) {
+    public TaskUpdateDto(Long id, String name, Long columId, String description,Long level,String deadline) {
         super(id);
         this.name = name;
-        this.columnId = columnId;
+        this.columnId = columId;
         this.description = description;
         this.level = level;
         this.deadline = deadline;

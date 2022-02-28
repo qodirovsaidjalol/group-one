@@ -1,9 +1,6 @@
 package uz.pdp.spring_boot.dto.task;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import uz.pdp.spring_boot.dto.GenericDto;
 import uz.pdp.spring_boot.entity.task.Task;
 
@@ -12,26 +9,24 @@ import java.util.Date;
 
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
 public class TaskDto extends GenericDto {
 
     private String name;
-    private Long projectId;
-    private Long columnId;
     private String description;
     private String level;
     private Boolean completed;
     private String deadline;
 
     @Builder(builderMethodName = "childBuilder")
-    public TaskDto(Long id, String name, String description, String level, boolean completed,String deadline,Long projectId,Long columnId) {
+    public TaskDto(Long id, String name, String description, String level, boolean completed,String deadline) {
         super(id);
         this.name = name;
         this.description =description;
         this.level = level;
         this.completed = completed;
         this.deadline= deadline;
-        this.projectId = projectId;
-        this.columnId = columnId;
     }
 
     public TaskDto(Task task) {
@@ -39,6 +34,5 @@ public class TaskDto extends GenericDto {
         this.name=task.getName();
         this.description=task.getDescription();
         this.deadline=task.getDeadline();
-        this.columnId=task.getColumn().getId();
     }
 }

@@ -16,22 +16,17 @@
 </head>
 <body>
 <div class="container">
-    <h3>Delete organization</h3>
+    <h3>Delete User</h3>
 
-
-    <div class="btn">
+    <div class=" btn">
         <a th:href="@{/organization/list/}">
             <button type="submit">No</button>
         </a>
 
         <form method="post" th:href="@{/organization/delete/{id}(id=${organization.id})}">
-
-            <button type="submit">Yes
-            </button>
+            <button type="submit">Yes</button>
         </form>
     </div>
-
 </div>
 </body>
 </html>
-

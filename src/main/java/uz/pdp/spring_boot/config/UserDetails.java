@@ -6,10 +6,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import uz.pdp.spring_boot.entity.permission.Permission;
 import uz.pdp.spring_boot.entity.user.AuthUser;
-import uz.pdp.spring_boot.entity.rele.Role;
+import uz.pdp.spring_boot.entity.user.Role;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
 @Getter
 @Setter
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
@@ -40,14 +41,9 @@ public class UserDetails implements org.springframework.security.core.userdetail
             return authorities;
         }
 
-        authorities.addAll(
-                permissions.stream()
-                        .map(permission -> new SimpleGrantedAuthority(permission.getCode()))
-                        .collect(Collectors.toSet())
-        );
+        authorities.addAll(permissions.stream().map(permission -> new SimpleGrantedAuthority(permission.getCode())).collect(Collectors.toSet()));
         return authorities;
     }
-
 
     @Override
     public String getPassword() {
@@ -83,4 +79,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
         return id;
     }
 
+    public Boolean isSuperAdmin() {
+        return user.isSuperAdmin();
+    }
 }

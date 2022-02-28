@@ -34,35 +34,13 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.sessionManagement(session ->
-                        session.maximumSessions(1)
-                                .maxSessionsPreventsLogin(false))
-                .authorizeRequests((authorizeRequests) -> authorizeRequests
-                        .antMatchers("/", "/css/*", "/js/*")
-                        .permitAll().anyRequest()
-                        .authenticated())
-                .formLogin((httpSecurityFormLoginConfigurer) -> httpSecurityFormLoginConfigurer
-                        .permitAll().loginPage("/auth/login")
-                        .loginProcessingUrl("/auth/login")
-                        .usernameParameter("username")
-                        .passwordParameter("password")
-                        .defaultSuccessUrl("/home", true))
-                .rememberMe((httpSecurityRememberMeConfigurer) ->
-                        httpSecurityRememberMeConfigurer
-                                .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))
-                                .alwaysRemember(false)
-                                .userDetailsService(service)
-                                .key("#$@#$WERWE%#$%#SDT#^$%^")
-                                .rememberMeParameter("remember-me"))
-                .logout(logout -> logout
-                        .logoutUrl("/auth/logout")
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"))
-                        .clearAuthentication(true)
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID", "remember-me")
-                        .logoutSuccessUrl("/auth/login"));
-
-        ;
+//        http.sessionManagement(session -> session.maximumSessions(1).maxSessionsPreventsLogin(false)).authorizeRequests((authorizeRequests) -> authorizeRequests.antMatchers("/", "/css/*", "/js/*", "/html/").permitAll().anyRequest().authenticated()).formLogin((httpSecurityFormLoginConfigurer) -> httpSecurityFormLoginConfigurer.permitAll().loginPage("/auth/login").loginProcessingUrl("/auth/login").usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/home", true)).rememberMe((httpSecurityRememberMeConfigurer) -> httpSecurityRememberMeConfigurer.tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30)).alwaysRemember(false).userDetailsService(service).key("#$@#$WERWE%#$%#SDT#^$%^").rememberMeParameter("remember-me")).logout(logout -> logout.logoutUrl("/auth/logout").logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST")).clearAuthentication(true).invalidateHttpSession(true).deleteCookies("JSESSIONID", "remember-me").logoutSuccessUrl("/auth/login"));
+        http
+                .authorizeRequests()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .httpBasic();
     }
 
     @Override

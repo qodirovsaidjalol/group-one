@@ -1,7 +1,5 @@
 package uz.pdp.spring_boot.mapper;
 
-import uz.pdp.spring_boot.entity.project.Project;
-
 import java.util.List;
 
 /**
@@ -14,10 +12,10 @@ import java.util.List;
 public interface BaseMapper<E, D, CD, UD> extends Mapper {
 
     List<D> toDto(List<E> e);
+
     D toDto(E e);
 
     List<E> fromDto(List<D> e);
-    E fromDto(D e);
 
     E fromCreateDto(CD cd);
 

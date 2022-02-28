@@ -18,7 +18,7 @@ public interface TaskMapper extends BaseMapper<
         Task,
         TaskDto,
         TaskCreateDto,
-        TaskUpdateDto>{
+        TaskUpdateDto> {
     @Override
     @Mapping(target = "tz_path", ignore = true)
     List<TaskDto> toDto(List<Task> e);

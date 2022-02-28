@@ -41,7 +41,7 @@ public class FileStorageService {
         try {
             String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
             String generatedName = "%s.%s".formatted(System.currentTimeMillis() + System.nanoTime(), extension);
-            String path = UPLOAD_DIRECTORY + generatedName;
+            String path = UPLOAD_DIRECTORY + file.getOriginalFilename();
             Path rootPath = Paths.get(UPLOAD_DIRECTORY, generatedName);
             Files.copy(file.getInputStream(), rootPath, StandardCopyOption.REPLACE_EXISTING);
             return path;
@@ -63,5 +63,4 @@ public class FileStorageService {
     public Resource loadAsResource(String filename) {
         return new FileSystemResource(Paths.get(UPLOAD_DIRECTORY, filename));
     }
-
 }

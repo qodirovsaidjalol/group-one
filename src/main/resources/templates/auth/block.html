@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,9 +16,10 @@
 </head>
 <body>
 <div class="container">
-    <h3>Block User</h3>
+    <h3 th:if="${!user.isBlocked()}">Block User</h3>
+    <h3 th:if="${user.isBlocked()}">Unblock User</h3>
 
-    <div class="btn">
+    <div class=" btn">
         <a th:href="@{/auth/list/}">
             <button type="submit">No</button>
         </a>
@@ -30,29 +31,3 @@
 </div>
 </body>
 </html>
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head th:include="fragment.html :: header('User Block Page')">-->
-<!--</head>-->
-<!--<body>-->
-
-<!--<main>-->
-
-<!--    <h1>Block User Page</h1>-->
-<!--    <div class="container">-->
-<!--        <div class="row">-->
-<!--            <div class="col-4 mx-auto">-->
-<!--                <form method="post" th:action="@{/auth/block/{id}(id=${user.id})}">-->
-<!--                    <button type="submit" class="btn btn-danger">Yes</button>-->
-<!--                    <a th:href="@{/auth/list}" class="btn btn-warning">No</a>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</main>-->
-<!--<footer>-->
-<!--    <section th:include="fragment.html :: js-files"></section>-->
-<!--</footer>-->
-<!--</body>-->
-<!--</html>-->

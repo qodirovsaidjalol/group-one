@@ -4,66 +4,60 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uz.pdp.spring_boot.criteria.GenericCriteria;
+import uz.pdp.spring_boot.dto.organization.OrganizationUpdateDto;
 import uz.pdp.spring_boot.dto.organization.OrganizationCreateDto;
-import uz.pdp.spring_boot.services.organization.OrganizationService;
+import uz.pdp.spring_boot.services.auth.AuthUserService;
+import uz.pdp.spring_boot.services.organization.OrganizationServiceImpl;
 
 @Controller
 @RequestMapping("/organization/*")
-//@PreAuthorize(value = "hasRole('SUPER')")
-public class OrganizationController extends AbstractController<OrganizationService> {
+public class OrganizationController extends AbstractController<OrganizationServiceImpl> {
+
+    private final AuthUserService authUserService;
 
     @Autowired
-    public OrganizationController(OrganizationService service) {
+    public OrganizationController(OrganizationServiceImpl service, AuthUserService authUserService) {
         super(service);
+        this.authUserService = authUserService;
     }
 
-    @RequestMapping(value = "create", method = RequestMethod.GET)
-    public String createPage() {
+    @RequestMapping("create")
+    public String createPage(Model model) {
+        model.addAttribute("organization", new OrganizationCreateDto());
         return "organization/create";
     }
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String create(Model model, @ModelAttribute OrganizationCreateDto dto) {
-        Long id = service.create(dto);
+    public String create(@ModelAttribute("dto") OrganizationCreateDto dto) {
+        service.create(dto);
+        return "redirect:/organization/list";
+    }
+
+    @RequestMapping(value = "update/{id}", method = RequestMethod.GET)
+    public String updatePage(Model model, @PathVariable("id") Long id) {
         model.addAttribute("organization", service.get(id));
-        return "auth/create_admin";
+        return "organization/edit";
+    }
+
+    @RequestMapping(value = "update/{id}", method = RequestMethod.POST)
+    public String update(@PathVariable("id") Long id, RedirectAttributes redirectAttributes, @ModelAttribute OrganizationUpdateDto dto, Model model) {
+        service.update(dto);
+        return "redirect:/organization/list";
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public String deletePage(Model model, @PathVariable(name = "id") Long id) {
+    public String deletePage(Model model, @PathVariable("id") Long id) {
         model.addAttribute("organization", service.get(id));
         return "organization/delete";
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable(name = "id") Long id) {
+    public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes, Model model) {
         service.delete(id);
         return "redirect:/organization/list";
     }
-
-    @RequestMapping(value = "update/{id}", method = RequestMethod.GET)
-    public String updatePage(@PathVariable Long id) {
-        return "organization/update";
-    }
-
-    @RequestMapping(value = "update/", method = RequestMethod.PATCH)
-    public String update() {
-        return "redirect:/";
-    }
-
-    @RequestMapping("detail/{id}")
-    public String detail(Model model, @PathVariable(name = "id") Long id) {
-        model.addAttribute("organization", service.get(id));
-        return "organization/detail";
-    }
-
-    @RequestMapping(value = "list", method = RequestMethod.GET)
-    public String listPage(Model model) {
-        model.addAttribute("organizations", service.getAll(new GenericCriteria()));
-        return "organization/list";
-    }
-
 
     @RequestMapping(value = "block/{id}", method = RequestMethod.GET)
     public String blockPage(Model model, @PathVariable(name = "id") Long id) {
@@ -73,19 +67,20 @@ public class OrganizationController extends AbstractController<OrganizationServi
 
     @RequestMapping(value = "block/{id}", method = RequestMethod.POST)
     public String block(@PathVariable(name = "id") Long id) {
-        service.block(id, false);
+        service.block(id);
         return "redirect:/organization/list";
     }
 
-    @RequestMapping(value = "unblock/{id}", method = RequestMethod.GET)
-    public String unblockPage(Model model, @PathVariable(name = "id") Long id) {
+    @RequestMapping(value = "detail/{id}", method = RequestMethod.GET)
+    public String detail(Model model, @PathVariable(name = "id") Long id) {
         model.addAttribute("organization", service.get(id));
-        return "organization/unblock";
+        model.addAttribute("owner", authUserService.get(service.get(id).getOwner()));
+        return "organization/detail";
     }
 
-    @RequestMapping(value = "unblock/{id}", method = RequestMethod.POST)
-    public String unblock(@PathVariable(name = "id") Long id) {
-        service.block(id, true);
-        return "redirect:/organization/list";
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    public String getAll(Model model) {
+        model.addAttribute("organizations", service.getAll(new GenericCriteria()));
+        return "organization/list";
     }
 }

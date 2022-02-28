@@ -6,51 +6,41 @@
             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
             name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <title>Thymeleaf Form handling Demo</title>
+
+    <title>Thymeleaf CRUD Example</title>
+
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css"
           rel="stylesheet">
+
 </head>
 
 <body class="container">
 
-<form class="col card p-3 my-5" method="post" enctype="multipart/form-data" th:action="@{/auth/create}"
+<form class="col card p-3 my-5" enctype="multipart/form-data" method="post" th:action="'/auth/update/'+${user.id}"
       th:object="${user}">
+
     <div class="form-group">
-        <label for="firstName">Username</label>
-        <input class="form-control" id="firstName" placeholder="Enter username" required autocomplete="off"
+        <label for="firstName"> Name</label>
+        <input class="form-control" id="firstName" placeholder="Enter First Name" required
                th:field="*{username}"
                type="text"/>
     </div>
 
-    <label>
-        <input type="hidden" th:value="${user.organizationId}" name="organizationId">
-    </label>
-
     <div class="form-group">
-        <label for="lastName">Password</label>
-        <input class="form-control" id="lastName" placeholder="Enter password" required autocomplete="off"
-               th:field="*{password}"
-               type="text"/>
-    </div>
-
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input class="form-control" id="email" placeholder="Enter email" required autocomplete="off"
+        <label for="email"> Email</label>
+        <input class="form-control" id="email" placeholder="Enter email" required
                th:field="*{email}"
                type="text"/>
     </div>
-    <div class="form-group">
-        <label for="image">Profile Image</label>
-        <input class="form-control" type="file" id="image" placeholder="Enter image"
-               th:field="*{image}" accept=".jpg, .jpeg, .png, .img" multiple/>
-    </div>
+
 
     <div class="form-group">
         <label for="role">Role</label>
         <select class="form-control " id="role" required th:field="*{role}">
             <option hidden value="">Select a role</option>
             <option
-                    th:each="role : ${T(uz.pdp.spring_boot.entity.user.Role).values()}"
+                    th:each="role : ${T(uz.pdp.spring_boot.entity.user
+                    .Role).values()}"
                     th:text="${role}"
                     th:value="${role}">
             </option>
@@ -70,10 +60,10 @@
     </div>
 
     <div>
-        <input class="btn btn-primary" type="submit" value="Create User">
+        <input class="btn btn-success" type="submit" value="Update">
     </div>
+
 </form>
-
 </body>
-
 </html>
+

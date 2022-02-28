@@ -13,11 +13,9 @@ public abstract class AbstractService<
         M extends Mapper> {
     protected final R repository;
     protected final M mapper;
-    protected final BaseUtils baseUtils;
 
-    protected AbstractService(R repository, M mapper,  BaseUtils baseUtils) {
+    protected AbstractService(R repository, M mapper) {
         this.repository = repository;
         this.mapper = mapper;
-        this.baseUtils = baseUtils;
     }
 }

@@ -1,93 +1,100 @@
 package uz.pdp.spring_boot.services.auth;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import uz.pdp.spring_boot.config.PasswordEncoderConfigurations;
 import uz.pdp.spring_boot.criteria.GenericCriteria;
-import uz.pdp.spring_boot.dto.auth.AuthUserCreateDto;
 import uz.pdp.spring_boot.dto.auth.AuthUserDto;
 import uz.pdp.spring_boot.dto.auth.AuthUserUpdateDto;
-import uz.pdp.spring_boot.entity.organization.Organization;
+import uz.pdp.spring_boot.dto.auth.AuthUserCreateDto;
 import uz.pdp.spring_boot.entity.user.AuthUser;
+import uz.pdp.spring_boot.entity.organization.Organization;
 import uz.pdp.spring_boot.mapper.AuthUserMapper;
 import uz.pdp.spring_boot.reposiroty.AuthUserRepository;
 import uz.pdp.spring_boot.reposiroty.OrganizationRepository;
-import uz.pdp.spring_boot.reposiroty.RoleRepository;
 import uz.pdp.spring_boot.services.AbstractService;
 import uz.pdp.spring_boot.services.organization.file.FileStorageService;
-import uz.pdp.spring_boot.utils.BaseUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, AuthUserMapper> implements AuthUserService {
 
     private final FileStorageService fileStorageService;
-    private final PasswordEncoderConfigurations encoder;
-    private final OrganizationRepository organizationService;
-    private final RoleRepository repositoryRole;
+    private final OrganizationRepository organizationRepository;
 
-    @Autowired
-    protected AuthUserServiceImpl(AuthUserRepository repository, @Qualifier("authUserMapperImpl") AuthUserMapper mapper, BaseUtils baseUtils, FileStorageService fileStorageService, PasswordEncoderConfigurations encoder, OrganizationRepository organizationService, RoleRepository repository1) {
-        super(repository, mapper, baseUtils);
+    protected AuthUserServiceImpl(AuthUserRepository repository, AuthUserMapper mapper, FileStorageService fileStorageService, OrganizationRepository organizationRepository) {
+        super(repository, mapper);
         this.fileStorageService = fileStorageService;
-        this.encoder = encoder;
-        this.organizationService = organizationService;
-        this.repositoryRole = repository1;
+        this.organizationRepository = organizationRepository;
     }
+
 
     @Override
-    public Long create(AuthUserCreateDto createDto) {
-        MultipartFile file = createDto.getImage();
+    public Long create(AuthUserCreateDto authUserCreateDto) {
+        MultipartFile file = authUserCreateDto.getImage();
         String logoPath = fileStorageService.store(file);
-        AuthUser user = mapper.fromCreateDto(createDto);
-        user.setPassword(encoder.passwordEncoder().encode(user.getPassword()));
+        AuthUser user = mapper.fromCreateDto(authUserCreateDto);
+        if (authUserCreateDto.getOrganizationId() == null)
+            user.setOrganization(organizationRepository.getById(1L));  // TODO: 2/27/2022 Sessionni organizatsiya id si beriladi
+        else {
+            user.setOrganization(organizationRepository.getById(authUserCreateDto.getOrganizationId()));
+        }
         user.setImage(logoPath);
-        user.setOrganization(repository.findOrg(createDto.getOrganizationId()));
-        user.setRole(repositoryRole.getByCodeEquals(createDto.getRole_name()));
-        return repository.save(user).getId();
+        return addOwner(repository.save(user));
     }
 
-    public Long createAdmin(AuthUserCreateDto createDto) {
-        AuthUser user = repository.findAuthUserById(create(createDto));
-        Organization organization = repository.findOrg(user.getOrganization().getId());
-        organization.setOwner(user.getId());
-        organizationService.save(organization);
-        return null;
+    private Long addOwner(AuthUser save) {
+        Organization organization = organizationRepository.findOrganizationById(save.getOrganization().getId());
+        organization.setOwner(save.getId());
+        organizationRepository.save(organization);
+        return save.getId();
     }
 
     @Override
     public Void delete(Long id) {
-        repository.delete(repository.getById(id));
+        Optional<AuthUser> optional = repository.findById(id);
+        if (optional.isPresent()) {
+            AuthUser authUser = optional.get();
+            authUser.setDeleted(true);
+            repository.save(authUser);
+        }
         return null;
     }
 
+    public void deleteAll(Long id) {
+        List<AuthUserDto> users = getAllFromOrganization(id);
+        for (AuthUserDto user : users) {
+            delete(user.getId());
+        }
+    }
+
     @Override
-    public Void update(AuthUserUpdateDto updateDto) {
-        AuthUser user = mapper.fromUpdateDto(updateDto);
-        user.setUsername(updateDto.getUsername());
-        user.setEmail(updateDto.getEmail());
+    public Void update(AuthUserUpdateDto authUpdateDto) {
+        AuthUser user = repository.findAuthUserById(authUpdateDto.getId());
+        user.setUsername(authUpdateDto.getUsername());
+        user.setRole(authUpdateDto.getRole());
+        user.setLanguage(authUpdateDto.getLanguage());
+        user.setEmail(authUpdateDto.getEmail());
         repository.save(user);
         return null;
     }
 
     @Override
     public List<AuthUserDto> getAll(GenericCriteria criteria) {
-        // TODO: 2/23/2022 sessionni organizatsia id sini berish kerak
-//        return mapper.toDto(repository.findAllByOrganization_Id(1L));
-        return mapper.toDto(repository.findAll());
+        Optional<List<AuthUser>> optional = repository.findAuthUsersByDeletedFalseAndOrganizationId(1L);
+        if (optional.isPresent()) return mapper.toDto(optional.get());
+        return new ArrayList<>();
     }
 
     @Override
     public AuthUserDto get(Long id) {
-        return mapper.toDto(repository.findAuthUserById(id));
-    }
-
-    @Override
-    public AuthUser getUser(Long id) {
-        return repository.findAuthUserById(id);
+        Optional<AuthUser> optional = repository.findById(id);
+        if (optional.isPresent()) {
+            return mapper.toDto(optional.get());
+        }
+        return new AuthUserDto();
     }
 
     @Override
@@ -95,12 +102,20 @@ public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, Aut
         return null;
     }
 
-    public void block(Long id, boolean b) {
+    public void block(Long id) {
         AuthUser user = repository.findAuthUserById(id);
-        boolean a = !b;
-        user.setBlocked(a);
+        user.setBlocked(!user.isBlocked());
         repository.save(user);
     }
 
+    @Override
+    public List<AuthUserDto> getAllFromOrganization() {
+        List<AuthUser> optional = repository.findAuthUsersByDeletedFalse();
+        return mapper.toDto(optional);
+    }
 
+    public List<AuthUserDto> getAllFromOrganization(Long id) {
+        Optional<List<AuthUser>> optional = repository.findAuthUsersByDeletedFalseAndOrganizationId(id);
+        return optional.map(mapper::toDto).orElse(null);
+    }
 }

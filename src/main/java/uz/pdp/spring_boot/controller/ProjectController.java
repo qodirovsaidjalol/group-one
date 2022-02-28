@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import uz.pdp.spring_boot.config.SecurityConfigurations;
+//import uz.pdp.spring_boot.config.SecurityConfigurations;
 import uz.pdp.spring_boot.config.UserDetails;
 import uz.pdp.spring_boot.criteria.GenericCriteria;
 import uz.pdp.spring_boot.dto.proect.ProjectCreateDto;

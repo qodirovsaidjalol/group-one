@@ -1,12 +1,15 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragment.html :: header('Home Page')"><title></title></head>
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index html one</title>
+    <meta
+            content="width=device-width, org-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+            name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Thymeleaf Form handling Demo</title>
+
+
     <link rel="stylesheet" th:href="@{/css/index.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,57 +18,142 @@
           rel="stylesheet">
 </head>
 
-<body class="myb">
+<style>
+    #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        margin-left: 30px;
+    }
+
+    #customers td, #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #customers tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #customers tr:hover {
+        background-color: #ddd;
+    }
+
+    #customers th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04AA6D;
+        color: white;
+    }
+</style>
+
+<body class="container">
 
 <header>
 
-    <main th:include="index.html::#index-main-page"></main>
+    <main id="index-main-page">
+        <div class="menu-bar">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <div class="logo">
+            <img src="https://github.com/qodirovsaidjalol/group-one/blob/8529d96f2194c415f51de795df68064c97a579f1/src/main/resources/static/imges/logo.png"
+                 width="166" th:src="@{/imges/logo.png}" alt="not"/>
+        </div>
+
+        <div class="link">
+            <a href="#"> -- Supper Admin </a>
+            <br>
+            <a href="#">Logout</a>
+
+        </div>
+    </main>
 
     <aside>
+        <nav id="index-nav">
+            <div class="input">
+                <div>
+                    <i class="fas fa-search"></i>
+                </div>
 
-        <nav th:include="index.html::#index-nav"></nav>
+                <label>
+                    <input type="text" placeholder="Search">
+                </label>
 
-        <div class="container">
-            <div class="row">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Owner</th>
-                        <th>Detail</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="organization,iter : ${organizations}">
-                        <td th:text="${iter.count}"></td>
-                        <td th:text="${organization.getName()}"></td>
-                        <td th:text=" ${organization.getEmail()}"></td>
-                        <td th:text="${organization.getOwner()}"></td>
-                        <td>
-                            <a th:href="@{/organization/detail/{id}/(id=${organization.id})}">Details</a>
-                        </td>
-                        <td>
-
-                            <a th:href="@{/organization/block/{id}/(id=${organization.id})}">🔐</a>
-                            <a th:href="@{/organization/unblock/{id}/(id=${organization.id})}">🔓</a>
-                            <a th:href="@{/organization/delete/{id}/(id=${organization.id})}">🗑</a>
-                            <!--                            <a th:href="@{/organization/update/{id}/(id=${organization.id})}"> ✏ </a>-->
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <a th:href="@{/organization/create}" class="btn btn-success">➕ Add</a>
             </div>
-        </div>
+
+            <div class="user-information">
+                <div class="icon">
+                    <img src="https://github.com/qodirovsaidjalol/group-one/blob/8529d96f2194c415f51de795df68064c97a579f1/src/main/resources/static/imges/bell.png"
+                         width="33" th:src="@{/imges/bell.png}" alt=""/>
+                    <i class="far fa-envelope"></i>
+                </div>
+
+                <div class="user">
+
+                    <img src="https://yt3.ggpht.com/ytc/AAUvwngn8SLWqd9pJjSKeeKWjpKzYA0imRDlQbi6yWf8=s900-c-k-c0x00ffffff-no-rj"
+                         width="56" alt="not">
+                    <details>
+                        <summary>Saidjalol Qodirov.</summary>
+
+                    </details>
+                </div>
+
+            </div>
+
+        </nav>
+
+        <br><br>
+
+        <table id="customers" class="table table-striped table-bordered">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Detail</th>
+                <th>Actions</th>
+                <th>Create Owner</th>
+            </tr>
+            <tr th:if="${#lists.isEmpty(organizations)}">
+                <td class="text-center" colspan="7">No Records found. Add some...!</td>
+            </tr>
+            <tr th:each="org, iter : ${organizations}">
+                <td class="align-middle" th:text="${iter.count}"></td>
+                <td style="text-align: center" class="align-middle" th:text="${org.name}"></td>
+                <td style="text-align: center" class="align-middle" th:text="${org.email}"></td>
+                <td style="text-align: center" class="align-middle"><a th:href="'/organization/detail/'+${org.id}">About
+                    <i th:text="${org.name}"></i></a></td>
+
+                <td style="text-align: center" class="align-middle text-center">
+                    <a class="btn btn-secondary" th:href="'/organization/update/' + ${org.id}">✏️</a>
+                    <a class="btn btn-secondary" th:if="${org.blocked}"
+                       th:href="'/organization/block/' + ${org.id}">🔓</a>
+                    <a class="btn btn-secondary" th:if="${!org.blocked}"
+                       th:href="'/organization/block/' + ${org.id}">🔐</a>
+                    <a class="btn btn-secondary" th:href="'/organization/delete/' + ${org.id}">🗑</a>
+                </td>
+                <td style="text-align: center">
+                    <a class="btn btn-secondary" th:if="${org.owner} == null"
+                       th:href="'/auth/createAdmin/' + ${org.id}">➕ </a>
+                    <a class="btn btn-secondary" th:if="${org.owner} != null">❌</a>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <h3><a th:href="@{/organization/create}">➕ Create Organization</a></h3>
     </aside>
 
 </header>
 
+<script>
+    const menu = document.querySelector(".menu-bar")
+    const main = document.querySelector("main")
+    menu.addEventListener("click", () => {
+        main.classList.toggle("open")
+    })
+</script>
+
 </body>
+
 </html>
-
-
-

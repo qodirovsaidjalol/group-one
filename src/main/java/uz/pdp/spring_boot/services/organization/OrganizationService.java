@@ -15,6 +15,5 @@ public interface OrganizationService extends GenericCrudService<
         GenericCriteria,
         Long> {
 
-
-    void block(Long id, boolean b);
+    void block(Long id);
 }

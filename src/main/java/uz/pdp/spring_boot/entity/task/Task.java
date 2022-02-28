@@ -34,4 +34,8 @@ public class Task extends Auditable implements BaseEntity {
     private boolean completed;
 
     private String deadline;
+
+    private String tz_path;
+
+    private Boolean isBlocked;
 }

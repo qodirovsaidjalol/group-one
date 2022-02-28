@@ -1,6 +1,7 @@
 package uz.pdp.spring_boot.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 import uz.pdp.spring_boot.dto.task.TaskCreateDto;
 import uz.pdp.spring_boot.dto.task.TaskDto;
@@ -19,6 +20,7 @@ public interface TaskMapper extends BaseMapper<
         TaskCreateDto,
         TaskUpdateDto>{
     @Override
+    @Mapping(target = "tz_path", ignore = true)
     List<TaskDto> toDto(List<Task> e);
 
     @Override
@@ -28,6 +30,7 @@ public interface TaskMapper extends BaseMapper<
     List<Task> fromDto(List<TaskDto> e);
 
     @Override
+    @Mapping(target = "tz_path", ignore = true)
     Task fromCreateDto(TaskCreateDto taskCreateDto);
 
     @Override

@@ -4,33 +4,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import uz.pdp.spring_boot.criteria.GenericCriteria;
-import uz.pdp.spring_boot.dto.proect.ProjectDto;
 import uz.pdp.spring_boot.dto.task.TaskCreateDto;
 import uz.pdp.spring_boot.dto.task.TaskDto;
 import uz.pdp.spring_boot.dto.task.TaskUpdateDto;
-import uz.pdp.spring_boot.entity.project.Project;
 import uz.pdp.spring_boot.entity.task.Task;
 import uz.pdp.spring_boot.mapper.TaskMapper;
 import uz.pdp.spring_boot.reposiroty.ColumRepository;
 import uz.pdp.spring_boot.reposiroty.ProjectRepository;
 import uz.pdp.spring_boot.reposiroty.TaskRepository;
 import uz.pdp.spring_boot.services.AbstractService;
+import uz.pdp.spring_boot.services.organization.file.FileStorageService;
 import uz.pdp.spring_boot.utils.BaseUtils;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskServiceImpl extends AbstractService<TaskRepository, TaskMapper> implements TaskService {
 
     private final ProjectRepository projectRepository;
     private final ColumRepository columnRepository;
+    private final FileStorageService fileStorageService;
 
     @Autowired
-    protected TaskServiceImpl(TaskRepository repository, @Qualifier("taskMapperImpl") TaskMapper mapper, BaseUtils baseUtils, ProjectRepository projectRepository, ColumRepository columnRepository) {
+    protected TaskServiceImpl(TaskRepository repository, @Qualifier("taskMapperImpl") TaskMapper mapper, BaseUtils baseUtils, ProjectRepository projectRepository, ColumRepository columnRepository, FileStorageService fileStorageService) {
         super(repository, mapper, baseUtils);
         this.projectRepository = projectRepository;
         this.columnRepository = columnRepository;
+        this.fileStorageService = fileStorageService;
     }
 
     @Override
@@ -38,6 +38,7 @@ public class TaskServiceImpl extends AbstractService<TaskRepository, TaskMapper>
         Task task = mapper.fromCreateDto(createDto);
         task.setProject(projectRepository.findProjectById(createDto.getProjectId()));
         task.setColumn(columnRepository.findColumnById(createDto.getColumnId()));
+        task.setTz_path(fileStorageService.store(createDto.getTz_path()));
         repository.save(task);
         return task.getId();
     }
@@ -72,7 +73,11 @@ public class TaskServiceImpl extends AbstractService<TaskRepository, TaskMapper>
 
     @Override
     public List<TaskDto> getAllByColumn(Long id) {
-        return mapper.toDto(repository.getAllByColumnId(columnRepository.findColumnById(id)));
+        List<TaskDto> taskDtos = mapper.toDto(repository.getAllByColumnId(columnRepository.findColumnById(id)));
+        for (TaskDto taskDto : taskDtos) {
+            taskDto.setTz_path(getTask(taskDto.getId()).getTz_path());
+        }
+        return taskDtos;
     }
 
     @Override

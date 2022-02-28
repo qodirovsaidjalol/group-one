@@ -3,6 +3,7 @@ package uz.pdp.spring_boot.dto.task;
 import lombok.*;
 import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 import uz.pdp.spring_boot.dto.Dto;
 
 import java.text.SimpleDateFormat;
@@ -24,5 +25,6 @@ public class TaskCreateDto implements Dto {
     private String description;
     private Long level;
     private String deadline;
+    private MultipartFile tz_path;
 
 }

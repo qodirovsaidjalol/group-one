@@ -18,6 +18,8 @@ public class TaskDto extends GenericDto {
     private String level;
     private Boolean completed;
     private String deadline;
+    private boolean isBlocked;
+    private String tz_path;
 
     @Builder(builderMethodName = "childBuilder")
     public TaskDto(Long id, String name, String description, String level, boolean completed,String deadline) {

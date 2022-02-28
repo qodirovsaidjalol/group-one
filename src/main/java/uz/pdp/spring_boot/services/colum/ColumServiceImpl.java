@@ -62,4 +62,9 @@ public class ColumServiceImpl extends AbstractService<ColumRepository, ColumMapp
     public Object getAllByProject(Project byId) {
       return  repository.getAllByProjectEquals(byId);
     }
+
+    @Override
+    public Colum getColum(Long id) {
+        return repository.getColumn(id);
+    }
 }

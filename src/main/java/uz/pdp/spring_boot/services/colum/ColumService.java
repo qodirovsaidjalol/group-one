@@ -18,4 +18,6 @@ public interface ColumService extends GenericCrudService<Colum,
         GenericCriteria, Long> {
 
     Object getAllByProject(Project byId);
+
+    Colum getColum(Long id);
 }

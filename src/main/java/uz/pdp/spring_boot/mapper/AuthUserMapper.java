@@ -19,17 +19,16 @@ public interface AuthUserMapper extends BaseMapper<
         AuthUserUpdateDto> {
 
     @Override
+    List<AuthUserDto> toDto(List<AuthUser> e);
+
+    @Override
+    AuthUserDto toDto(AuthUser authUser);
+
+    @Override
     @Mapping(target = "image", ignore = true)
     AuthUser fromCreateDto(AuthUserCreateDto authUserCreateDto);
 
     @Override
-    AuthUser fromUpdateDto(AuthUserUpdateDto authUserUpdateDto);
-
-    @Override
-    List<AuthUserDto> toDto(List<AuthUser> e);
-
-    AuthUserDto toDto(AuthUser u);
-
-    @Override
-    List<AuthUser> fromDto(List<AuthUserDto> e);
+    @Mapping(target = "image", ignore = true)
+    AuthUser fromUpdateDto(AuthUserUpdateDto authUpdateDto);
 }

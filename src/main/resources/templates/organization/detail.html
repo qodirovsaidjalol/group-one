@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragment.html :: header('Home Page')"><title></title></head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="">
 
 <head>
     <meta charset="UTF-8">
@@ -15,45 +14,87 @@
           rel="stylesheet">
 </head>
 
+<style>
+    ul {
+        list-style-type: square;
+    }
+</style>
+
 <body class="myb">
 
-
 <header>
-    <main>
+    <main id="index-main-page">
         <div class="menu-bar">
             <i class="fas fa-bars"></i>
         </div>
+
         <div class="logo">
-            <img src="../../static/imges/logo.png"
-                 th:src="@{../../static/imges/logo.png}" alt="not found"/>
+            <img src="https://github.com/qodirovsaidjalol/group-one/blob/8529d96f2194c415f51de795df68064c97a579f1/src/main/resources/static/imges/logo.png"
+                 width="166" th:src="@{/imges/logo.png}" alt="not"/>
         </div>
 
+        <div class="link">
+            <a href="#"> -- Supper Admin
+            </a>
+            <a th:href="@{/organization/list}">Organizations</a>
+            <a th:href="@{/auth/listAll}">All Users</a>
+            <a th:href="@{/organization/create}">Create Organization</a>
+            <a href="#">Logout</a>
+
+        </div>
     </main>
-
     <aside>
-        <nav th:include="index.html::#index-nav"></nav>
+        <nav id="index-nav">
+            <div class="input">
+                <div>
+                    <i class="fas fa-search"></i>
+                </div>
 
-        <h1>Detail Organization Page</h1>
+                <label>
+                    <input type="text" placeholder="Search">
+                </label>
+
+            </div>
+
+            <div class="user-information">
+                <div class="icon">
+                    <img src="https://github.com/qodirovsaidjalol/group-one/blob/8529d96f2194c415f51de795df68064c97a579f1/src/main/resources/static/imges/bell.png"
+                         width="33" th:src="@{/imges/bell.png}" alt=""/>
+                    <i class="far fa-envelope"></i>
+                </div>
+
+                <div class="user">
+
+                    <img src="https://yt3.ggpht.com/ytc/AAUvwngn8SLWqd9pJjSKeeKWjpKzYA0imRDlQbi6yWf8=s900-c-k-c0x00ffffff-no-rj"
+                         width="56" alt="not">
+                    <details>
+                        <summary>Saidjalol Qodirov.</summary>
+
+                    </details>
+                </div>
+
+            </div>
+
+        </nav>
         <div class="container">
             <div class="row">
                 <div class="col-4 mx-auto">
                     <div>
-                        <img th:src="@{/assets/imges/logo}" alt="not found">
+                        <img th:src="${organization.getLogo()}" alt="not found" src="">
                         <ul>
-                            <li class="h4" th:text="${organization.name}"></li>
-                            <li class="h4" th:text="${organization.email}"></li>
-                            <li class="h4" th:text="${organization.location}"></li>
-                            <li class="h4" th:text="${organization.code}"></li>
-                            <li class="h4" th:text="${organization.owner}"></li>
+                            <li><h1>About Organization</h1></li>
+                            <li class="h4"> Organization name => <b th:text="${organization.name}"></b></li>
+                            <li class="h4">Organization email=> <b th:text="${organization.email}"></b></li>
+                            <li class="h4">Organization code=> <b th:text="${organization.code}"></b></li>
+                            <h1>Owner</h1>
+                            <li class="h4">Owner username => <b th:text="${owner.username}"></b></li>
+                            <li class="h4">Owner email => <b th:text="${owner.email}"></b></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-
     </aside>
-
 </header>
-
 </body>
 </html>

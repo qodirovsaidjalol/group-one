@@ -15,6 +15,7 @@
           rel="stylesheet">
 </head>
 <body>
+
 <header>
     <main id="index-main-page">
         <div class="menu-bar">
@@ -22,7 +23,8 @@
         </div>
 
         <div class="logo">
-            <img src="../static/imges/logo.png" width="166" th:src="@{imges/logo.png}"/>
+            <img src="https://github.com/qodirovsaidjalol/group-one/blob/8529d96f2194c415f51de795df68064c97a579f1/src/main/resources/static/imges/logo.png"
+                 width="166" th:src="@{/imges/logo.png}" alt="not"/>
         </div>
 
         <div class="link" sec:authorize="hasRole('ADMIN')">
@@ -30,18 +32,17 @@
             <a th:href="@{/auth/listOrg}">Users</a>
         </div>
 
-        <div class="link" sec:authorize="hasRole('SUPER')">
-            <a th:href="@{/organization/list}">Organizations</a>
-            <a th:href="@{/auth/list}">Users</a>
+        <a th:href="@{/organization/list}">Organizations</a>
+        <a th:href="@{/auth/list}">Users</a>
         </div>
 
         <div class="link" sec:authorize="isAnonymous()">
             <a th:href="@{/auth/login}">Login</a>
         </div>
 
-        <label class="link" sec:authorize="isAuthenticated()">
+        <div class="link" sec:authorize="isAuthenticated()">
             <a th:href="@{/auth/login}">Logout</a>
-        </label>
+        </div>
 
         <div class="link" sec:authorize="hasAnyRole('ADMIN','EMPLOYEE')">
             <a href="#"> -- Clients
@@ -67,13 +68,15 @@
 
             <div class="user-information">
                 <div class="icon">
-                    <img src="../static/imges/bell.png" width="33" th:src="@{imges/bell.png}"/>
+                    <img src="https://github.com/qodirovsaidjalol/group-one/blob/8529d96f2194c415f51de795df68064c97a579f1/src/main/resources/static/imges/bell.png"
+                         width="33" th:src="@{/imges/bell.png}"/>
                     <i class="far fa-envelope"></i>
                 </div>
 
                 <div class="user">
 
-                    <img src="../static/imges/useer.png" width="56" th:src="@{imges/useer.png}"/>
+                    <img src="https://github.com/qodirovsaidjalol/group-one/blob/8529d96f2194c415f51de795df68064c97a579f1/src/main/resources/static/imges/useer.png"
+                         width="56" th:src="@{/imges/useer.png}"/>
                     <details>
                         <summary>Saidjalol Qodirov.</summary>
 
@@ -85,7 +88,7 @@
         </nav>
 
         <div class="container">
-            <h3>ОсОО “Energi.kg”</h3>
+
             <div class="content">
                 <div class="contents">
                     <div class="content-text">
@@ -174,7 +177,6 @@
             </div>
         </div>
     </aside>
-
 </header>
 
 <script>

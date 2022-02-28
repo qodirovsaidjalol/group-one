@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import uz.pdp.spring_boot.entity.Auditable;
 import uz.pdp.spring_boot.entity.organization.Organization;
-import uz.pdp.spring_boot.entity.rele.Role;
 
 import javax.persistence.*;
 
@@ -30,10 +29,11 @@ public class AuthUser extends Auditable {
     private boolean isActive = true;
 
     private boolean isBlocked = false;
-
     @ManyToOne
     private Organization organization;
 
-    @ManyToOne
+    private Language language;
+
     private Role role;
+
 }

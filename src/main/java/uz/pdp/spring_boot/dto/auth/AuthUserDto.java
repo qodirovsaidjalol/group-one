@@ -2,7 +2,7 @@ package uz.pdp.spring_boot.dto.auth;
 
 import lombok.*;
 import uz.pdp.spring_boot.dto.GenericDto;
-import uz.pdp.spring_boot.entity.rele.Role;
+import uz.pdp.spring_boot.entity.user.Role;
 
 @Getter
 @Setter

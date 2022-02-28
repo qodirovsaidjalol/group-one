@@ -19,15 +19,16 @@ public interface OrganizationMapper extends BaseMapper<
         OrganizationUpdateDto> {
 
     @Override
+    List<OrganizationDto> toDto(List<Organization> e);
+
+    @Override
+    OrganizationDto toDto(Organization organization);
+
+    @Override
     @Mapping(target = "logo", ignore = true)
     Organization fromCreateDto(OrganizationCreateDto organizationCreateDto);
 
     @Override
     @Mapping(target = "logo", ignore = true)
     Organization fromUpdateDto(OrganizationUpdateDto organizationUpdateDto);
-
-    @Override
-    List<Organization> fromDto(List<OrganizationDto> e);
-
-    OrganizationDto toDto(Organization org);
 }

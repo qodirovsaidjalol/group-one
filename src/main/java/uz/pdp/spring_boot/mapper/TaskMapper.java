@@ -19,7 +19,7 @@ public interface TaskMapper extends BaseMapper<
         Task,
         TaskDto,
         TaskCreateDto,
-        TaskUpdateDto>{
+        TaskUpdateDto> {
     @Override
     List<TaskDto> toDto(List<Task> e);
 

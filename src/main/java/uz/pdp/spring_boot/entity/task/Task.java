@@ -5,6 +5,7 @@ import lombok.Setter;
 import uz.pdp.spring_boot.entity.Auditable;
 import uz.pdp.spring_boot.entity.BaseEntity;
 import uz.pdp.spring_boot.entity.column.Colum;
+import uz.pdp.spring_boot.entity.column.Colum;
 import uz.pdp.spring_boot.entity.project.Project;
 
 import javax.persistence.*;

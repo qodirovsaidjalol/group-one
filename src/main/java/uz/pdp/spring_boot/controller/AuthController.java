@@ -2,82 +2,66 @@ package uz.pdp.spring_boot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import uz.pdp.spring_boot.config.UserDetails;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uz.pdp.spring_boot.criteria.GenericCriteria;
 import uz.pdp.spring_boot.dto.auth.AuthUserCreateDto;
+import uz.pdp.spring_boot.dto.auth.AuthUserUpdateDto;
 import uz.pdp.spring_boot.services.auth.AuthUserService;
-import uz.pdp.spring_boot.services.auth.AuthUserServiceImpl;
 
 @Controller
 @RequestMapping("/auth/*")
 public class AuthController extends AbstractController<AuthUserService> {
 
     @Autowired
-    public AuthController(@Qualifier("authUserServiceImpl") AuthUserServiceImpl service) {
+    public AuthController(@Qualifier("authUserServiceImpl") AuthUserService service) {
         super(service);
     }
 
-    @GetMapping("create")
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String createPage(Model model) {
-        model.addAttribute("admin", service.get(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()));
+        model.addAttribute("user", new AuthUserCreateDto());
         return "auth/create";
     }
 
-    @RequestMapping(value = {"/index"}, method = RequestMethod.GET)
-    public String index(Model model) {
-        model.addAttribute("user", service.get(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()));
-        return "index";
+    @RequestMapping(value = "/createAdmin/{id}", method = RequestMethod.GET)
+    public String createAdmin(Model model, @PathVariable(name = "id") Long id) {
+        AuthUserCreateDto dto = new AuthUserCreateDto();
+        dto.setOrganizationId(id);
+        model.addAttribute("user", dto);
+        return "auth/create";
     }
 
-    @GetMapping(value = {"/auth/login"})
-    public String loginPage() {
-        return "login";
-    }
-
-    @PostMapping("create")
-    public String create(@ModelAttribute(name = "dto") AuthUserCreateDto dto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "auth/create";
-        }
-        service.create(dto);
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String create(@ModelAttribute AuthUserCreateDto createDto, Model model) {
+        service.create(createDto);
+        if (createDto.getOrganizationId() != null) return "redirect:/organization/list";
         return "redirect:/auth/list";
     }
 
-    @PostMapping("createAdmin")
-    public String createAdmin(@ModelAttribute(name = "dto") AuthUserCreateDto dto, BindingResult bindingResult) {
-        service.createAdmin(dto);
-        return "redirect:/auth/list";
-    }
-
-    @GetMapping("update/{id}")
-    public String updatePage(Model model, @PathVariable(name = "id") Long id) {
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+    public String updatePage(Model model, @PathVariable("id") Long id) {
         model.addAttribute("user", service.get(id));
-        return "auth/update";
+        return "auth/edit";
     }
 
-    @PostMapping("update")
-    public String update(@ModelAttribute(name = "dto") AuthUserCreateDto dto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "auth/create";
-        }
-        service.create(dto);
-        return "auth/list";
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public String update(@PathVariable("id") Long id, RedirectAttributes redirectAttributes, @ModelAttribute AuthUserUpdateDto dto, Model model) {
+        service.update(dto);
+        model.addAttribute("user", service.get(id));
+        return "redirect:/auth/list";
     }
 
-
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public String deletePage(Model model, @PathVariable(name = "id") Long id) {
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String deletePage(Model model, @PathVariable("id") Long id) {
         model.addAttribute("user", service.get(id));
         return "auth/delete";
     }
 
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable(name = "id") Long id) {
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes, Model model) {
         service.delete(id);
         return "redirect:/auth/list";
     }
@@ -90,37 +74,26 @@ public class AuthController extends AbstractController<AuthUserService> {
 
     @RequestMapping(value = "block/{id}", method = RequestMethod.POST)
     public String block(@PathVariable(name = "id") Long id) {
-        service.block(id, false);
+        service.block(id);
         return "redirect:/auth/list";
     }
 
-    @RequestMapping(value = "unblock/{id}", method = RequestMethod.GET)
-    public String unblockPage(Model model, @PathVariable(name = "id") Long id) {
-        model.addAttribute("user", service.get(id));
-        return "auth/unblock";
-    }
-
-    @RequestMapping(value = "unblock/{id}", method = RequestMethod.POST)
-    public String unblock(@PathVariable(name = "id") Long id) {
-        service.block(id, true);
-        return "redirect:/auth/list";
-    }
-
-    @RequestMapping("list/{id}")
-    public String listId(Model model/*, @PathVariable(name = "userId") Long userId*/) {
-        model.addAttribute("users", service.getAll(new GenericCriteria()));
-        return "auth/list";
-    }
-
-    @RequestMapping("list")
-    public String list(Model model/*, @PathVariable(name = "userId") Long userId*/) {
-        model.addAttribute("users", service.getAll(new GenericCriteria()));
-        return "auth/list";
-    }
-
-    @RequestMapping("detail/{id}")
+    @RequestMapping(value = "detail/{id}", method = RequestMethod.GET)
     public String detail(Model model, @PathVariable(name = "id") Long id) {
         model.addAttribute("user", service.get(id));
         return "auth/detail";
+    }
+
+
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    public String getAll(Model model) {
+        model.addAttribute("users", service.getAll(new GenericCriteria()));
+        return "auth/list";
+    }
+
+    @RequestMapping(value = "listAll", method = RequestMethod.GET)
+    public String getAllFromOrg(Model model) {
+        model.addAttribute("users", service.getAllFromOrganization());
+        return "auth/list";
     }
 }

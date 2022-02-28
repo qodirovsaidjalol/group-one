@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,9 +16,10 @@
 </head>
 <body>
 <div class="container">
-    <h3>Block organization</h3>
+    <h3 th:if="${!organization.isBlocked()}">Block Organization</h3>
+    <h3 th:if="${organization.isBlocked()}">Unblock Organization</h3>
 
-    <div class="btn">
+    <div class=" btn">
         <a th:href="@{/organization/list/}">
             <button type="submit">No</button>
         </a>

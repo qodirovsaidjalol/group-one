@@ -18,6 +18,7 @@ public class OrganizationDto extends GenericDto {
     private Long owner;
 
 
+
     @Builder(builderMethodName = "childBuilder")
     public OrganizationDto(Long id, String name, String logo, String code, String location, String email, Long owner) {
         super(id);

@@ -27,7 +27,7 @@ public class OrganizationServiceImpl extends AbstractService<OrganizationReposit
     private final AuthUserServiceImpl authUserService;
 
     @Autowired
-    protected OrganizationServiceImpl(OrganizationRepository repository, OrganizationMapper mapper, BaseUtils baseUtils, FileStorageService fileStorageService, AuthUserServiceImpl authUserService) {
+    protected OrganizationServiceImpl(OrganizationRepository repository, OrganizationMapper mapper, FileStorageService fileStorageService, AuthUserServiceImpl authUserService) {
         super(repository, mapper);
         this.fileStorageService = fileStorageService;
         this.authUserService = authUserService;

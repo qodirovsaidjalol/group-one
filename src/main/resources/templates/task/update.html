@@ -1,17 +1,26 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragment.html :: header('TASK')"></head>
-<body class="myb">
-<section th:include="fragment.html :: navbar"></section>
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+            name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
 
+    <title>Thymeleaf CRUD Example</title>
 
-<div class="container">
-    <div class="row">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css"
+          rel="stylesheet">
+
+</head>
+
+<body class="container">
         <div class="col-6 mx-auto">
-            <form th:action="@{/task/update}" th:method="post" th:object="${task}">
+            <form class="col card p-3 my-5" th:action="@{/task/update}" th:method="post" th:object="${task}">
+                <div style="color: #2e3cfb; text-align: center"><h2>Task Update</h2></div>
                 <div class="form-group">
                     <label for="id" class="form-label"></label>
-                    <input class="form-control" type="text" id="id" name="id" th:value="${task.getId()}"/> <!--th:field="*{description}"-->
+                    <input class="form-control" type="hidden" id="id" name="id" th:value="${task.getId()}"/> <!--th:field="*{description}"-->
                     <span style="color: red" th:errors="*{id}"></span>
                 </div>
                 <div class="form-group">
@@ -30,21 +39,23 @@
                     <!--                    <span style="color: red" th:errors="*{column}"></span>-->
                 </div>
                 <div class="form-group">
-                    <label for="level" class="form-label">Level</label>
-                    <input class="form-control" type="text" id="level" name="level" th:value="${task.getLevel()}"/> <!--th:field="*{level}"-->
-                    <!--                    <span style="color: red" th:errors="*{level}"></span>-->
-                </div>
-                <div class="form-group">
                     <label for="deadline">Deadline</label>
                     <input class="form-control form-control-lg" type="date" id="deadline" name="deadline" required="" th:value="${task.getDeadline()}">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="submit" value="save" th:action="@{/task/update}"/>
+                    <label for="level">Level</label>
+                    <select class="form-control " id="level" required th:field="*{level}">
+                        <option name="role_name" value="3">HARD</option>
+                        <option name="role_name" value="2">MIDDLE</option>
+                        <option name="role_name" value="1">EASY</option>
+                    </select>
+                </div>
+                <div style="color: #42ef26; text-align: center">
+                    <input class="btn btn-success" type="submit" value="Update">
                 </div>
             </form>
         </div>
-    </div>
-</div>
+
 
 <section th:include="fragment.html :: js-files"></section>
 </body>

@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class ColumServiceImpl extends AbstractService<ColumRepository, ColumMapper> implements ColumService {
     @Autowired
-    protected ColumServiceImpl(ColumRepository repository, @Qualifier("columMapperImpl") ColumMapper mapper, BaseUtils baseUtils) {
+    protected ColumServiceImpl(ColumRepository repository, @Qualifier("columMapperImpl") ColumMapper mapper) {
         super(repository, mapper);
     }
 

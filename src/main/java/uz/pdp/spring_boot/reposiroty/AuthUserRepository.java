@@ -1,6 +1,7 @@
 package uz.pdp.spring_boot.reposiroty;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 import uz.pdp.spring_boot.entity.user.AuthUser;
 

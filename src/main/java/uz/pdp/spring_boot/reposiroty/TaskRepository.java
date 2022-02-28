@@ -24,4 +24,7 @@ public interface TaskRepository extends JpaRepository<Task, Long>, AbstractRepos
 
     @Query(value = "from Task t where t.id=:id")
     Task getTask(Long id);
+
+    @Query(value = "update Task t set t.isBlocked=:b where t.id=:id")
+    void block(Long id, boolean b);
 }

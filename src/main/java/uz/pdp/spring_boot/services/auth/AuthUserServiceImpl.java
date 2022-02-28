@@ -114,6 +114,11 @@ public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, Aut
         return mapper.toDto(optional);
     }
 
+    @Override
+    public AuthUser getUser(Long id) {
+        return null;
+    }
+
     public List<AuthUserDto> getAllFromOrganization(Long id) {
         Optional<List<AuthUser>> optional = repository.findAuthUsersByDeletedFalseAndOrganizationId(id);
         return optional.map(mapper::toDto).orElse(null);

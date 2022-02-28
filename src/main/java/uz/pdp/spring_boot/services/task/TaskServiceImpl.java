@@ -14,7 +14,6 @@ import uz.pdp.spring_boot.reposiroty.ProjectRepository;
 import uz.pdp.spring_boot.reposiroty.TaskRepository;
 import uz.pdp.spring_boot.services.AbstractService;
 import uz.pdp.spring_boot.services.organization.file.FileStorageService;
-import uz.pdp.spring_boot.utils.BaseUtils;
 
 import java.util.List;
 
@@ -26,8 +25,8 @@ public class TaskServiceImpl extends AbstractService<TaskRepository, TaskMapper>
     private final FileStorageService fileStorageService;
 
     @Autowired
-    protected TaskServiceImpl(TaskRepository repository, @Qualifier("taskMapperImpl") TaskMapper mapper, BaseUtils baseUtils, ProjectRepository projectRepository, ColumRepository columnRepository, FileStorageService fileStorageService) {
-        super(repository, mapper, baseUtils);
+    protected TaskServiceImpl(TaskRepository repository, @Qualifier("taskMapperImpl") TaskMapper mapper, ProjectRepository projectRepository, ColumRepository columnRepository, FileStorageService fileStorageService) {
+        super(repository, mapper);
         this.projectRepository = projectRepository;
         this.columnRepository = columnRepository;
         this.fileStorageService = fileStorageService;
@@ -83,5 +82,11 @@ public class TaskServiceImpl extends AbstractService<TaskRepository, TaskMapper>
     @Override
     public Task getTask(Long id) {
         return repository.getTask(id);
+    }
+
+    @Override
+    public void block(Long id, boolean b) {
+        System.out.println(b);
+        repository.block(id,b);
     }
 }

@@ -17,7 +17,7 @@ public interface AuthUserService extends GenericCrudService<AuthUser, AuthUserDt
 
     List<AuthUserDto> getAllFromOrganization();
 
-    Long createAdmin(AuthUserCreateDto dto);
+//    Long createAdmin(AuthUserCreateDto dto);
 
     AuthUser getUser(Long id);
 }

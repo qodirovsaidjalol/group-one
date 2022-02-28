@@ -61,20 +61,35 @@ public class TaskController extends AbstractController<TaskService> {
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public String update(@ModelAttribute TaskUpdateDto dto) {
         service.update(dto);
-        return "redirect:/";
+        return "redirect:/task/list/"+dto.getColumnId()+"/";
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public ModelAndView deletePage(ModelAndView modelAndView, @PathVariable(name = "id") Long id) {
         modelAndView.setViewName("task/delete");
-        modelAndView.addObject("task", service.get(id));
+        modelAndView.addObject("task", service.getTask(id));
         return modelAndView;
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable(name = "id") Long id) {
+        Task task= service.getTask(id);
         service.delete(id);
-        return "redirect:/";
+        return "redirect:/task/list/"+task.getColumn().getId()+"/";
+    }
+
+    @RequestMapping(value = "block/{id}", method = RequestMethod.GET)
+    public ModelAndView blockPage(ModelAndView modelAndView, @PathVariable(name = "id") Long id) {
+        modelAndView.setViewName("task/block");
+        modelAndView.addObject("task", service.getTask(id));
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "block/{id}", method = RequestMethod.POST)
+    public String block(@PathVariable(name = "id") Long id) {
+        Task task= service.getTask(id);
+//        service.block(id,!(task.isBlocked()));
+        return "redirect:/task/list/"+task.getColumn().getId()+"/";
     }
 
     @RequestMapping(value = "list/{id}/", method = RequestMethod.GET)

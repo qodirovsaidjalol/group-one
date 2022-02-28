@@ -27,14 +27,14 @@
                  width="166" th:src="@{/imges/logo.png}" alt="not"/>
         </div>
 
-        <div class="link" sec:authorize="hasRole('ADMIN')">
+        <div><!--class="link" sec:authorize="hasRole('ADMIN')"-->
             <a th:href="@{/project/list}">Projects</a>
             <a th:href="@{/auth/listOrg}">Users</a>
         </div>
 
         <a th:href="@{/organization/list}">Organizations</a>
         <a th:href="@{/auth/list}">Users</a>
-        </div>
+
 
         <div class="link" sec:authorize="isAnonymous()">
             <a th:href="@{/auth/login}">Login</a>

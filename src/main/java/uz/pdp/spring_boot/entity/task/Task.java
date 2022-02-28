@@ -38,5 +38,5 @@ public class Task extends Auditable implements BaseEntity {
 
     private String tz_path;
 
-    private Boolean isBlocked;
+    private Long isBlocked;
 }

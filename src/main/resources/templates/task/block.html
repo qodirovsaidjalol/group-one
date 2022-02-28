@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragment.html :: header('Task Delete Page')">
+<head th:include="fragment.html :: header('Task Block Page')">
 </head>
 <body>
 <header>
@@ -8,14 +8,14 @@
 </header>
 <main>
 
-    <h1>Delete Task Page</h1>
+    <h1>Task lock Page</h1>
     <div class="container">
         <div class="row">
             <div class="col-8 mx-auto">
                 <ul>
                     <li th:text="${task.name}"></li>
                 </ul>
-                <form method="post" th:action="@{/task/delete/{id}(id=${task.id})}">
+                <form method="post" th:action="@{/task/block/{id}(id=${task.id})}">
                     <button type="submit" class="btn btn-danger">Yes</button>
                     <a th:href="@{/task/list/{id}/(id=${task.getColumn().getId()})}" class="btn btn-warning">No</a>
                 </form>

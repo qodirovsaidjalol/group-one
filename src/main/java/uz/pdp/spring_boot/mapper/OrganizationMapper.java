@@ -10,7 +10,6 @@ import uz.pdp.spring_boot.entity.organization.Organization;
 
 import java.util.List;
 
-@Component
 @Mapper(componentModel = "spring")
 public interface OrganizationMapper extends BaseMapper<
         Organization,

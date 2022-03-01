@@ -108,6 +108,13 @@ public class AuthUserServiceImpl extends AbstractService<AuthUserRepository, Aut
         repository.save(user);
     }
 
+    public void blockAll(Long id) {
+        List<AuthUserDto> users = getAllFromOrganization(id);
+        for (AuthUserDto user : users) {
+            block(user.getId());
+        }
+    }
+
     @Override
     public List<AuthUserDto> getAllFromOrganization() {
         List<AuthUser> optional = repository.findAuthUsersByDeletedFalse();

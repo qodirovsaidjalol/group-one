@@ -24,7 +24,7 @@
             <button type="submit">No</button>
         </a>
 
-        <form method="post" th:href="@{/auth/block/{id}(id=${user.id})}">
+        <form method="post" th:action="@{/auth/block/{id}(id=${user.id})}">
             <button type="submit">Yes</button>
         </form>
     </div>

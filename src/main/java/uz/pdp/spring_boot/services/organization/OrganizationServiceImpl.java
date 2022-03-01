@@ -19,8 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class OrganizationServiceImpl extends AbstractService<OrganizationRepository, OrganizationMapper>
-        implements OrganizationService {
+public class OrganizationServiceImpl extends AbstractService<OrganizationRepository, OrganizationMapper> implements OrganizationService {
 
 
     private final FileStorageService fileStorageService;
@@ -73,14 +72,15 @@ public class OrganizationServiceImpl extends AbstractService<OrganizationReposit
 
     public void block(Long id) {
         Organization org = repository.findOrganizationById(id);
+        authUserService.blockAll(id);
         org.setBlocked(!org.isBlocked());
         repository.save(org);
     }
 
     @Override
     public OrganizationDto get(Long id) {
-        Optional<Organization> optional = repository.findById(id);
-        return optional.map(mapper::toDto).orElse(null);
+//        Optional<Organization> optional = repository.findById(id);
+        return mapper.toDto(repository.findOrganizationById(id));
     }
 
     @Override

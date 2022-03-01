@@ -120,12 +120,12 @@
             </tr>
             <tr th:each="org, iter : ${organizations}">
                 <td class="align-middle" th:text="${iter.count}"></td>
-                <td style="text-align: center" class="align-middle" th:text="${org.name}"></td>
-                <td style="text-align: center" class="align-middle" th:text="${org.email}"></td>
-                <td style="text-align: center" class="align-middle"><a th:href="'/organization/detail/'+${org.id}">About
+                <td class="align-middle" th:text="${org.name}"></td>
+                <td class="align-middle" th:text="${org.email}"></td>
+                <td class="align-middle"><a th:href="'/organization/detail/'+${org.id}">About
                     <i th:text="${org.name}"></i></a></td>
 
-                <td style="text-align: center" class="align-middle text-center">
+                <td class="align-middle text-center">
                     <a class="btn btn-secondary" th:href="'/organization/update/' + ${org.id}">✏️</a>
                     <a class="btn btn-secondary" th:if="${org.blocked}"
                        th:href="'/organization/block/' + ${org.id}">🔓</a>
